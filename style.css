@@ -4,6 +4,22 @@
     box-sizing: border-box;
 }
 
+body {
+    animation: pageTransition 0.7s ease-out;
+}
+
+@keyframes pageTransition {
+    from {
+        opacity: 0;
+        filter: blur(12px);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
 html,
 body {
     width: 100%;
