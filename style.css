@@ -118,6 +118,18 @@ body {
     letter-spacing: 0.02em;
 }
 
+.restore-image img {
+    display: block;
+
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+
+    margin: 0 auto;
+
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+}
 
 /* ================================
    Mobile
