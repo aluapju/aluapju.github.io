@@ -1,331 +1,346 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Error Code - AluaPJUnder</title>
+```
+<title>Error Code - AluaPJUnder</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    html {
+        scroll-behavior: smooth;
+    }
 
-        body {
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                "Noto Sans TC",
-                "Microsoft JhengHei",
-                sans-serif;
+    body {
+        font-family:
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            "Noto Sans TC",
+            "Microsoft JhengHei",
+            sans-serif;
 
-            background: #ffffff;
-            color: #111111;
-        }
+        background: #ffffff;
+        color: #111111;
+    }
 
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+
+        width: 100%;
+        height: 72px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 32px;
+
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(10px);
+
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .brand {
+        color: #111111;
+        text-decoration: none;
+
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .home {
+        color: #111111;
+        text-decoration: none;
+
+        font-size: 15px;
+        font-weight: 500;
+
+        transition: opacity 0.2s ease;
+    }
+
+    .home:hover {
+        opacity: 0.55;
+    }
+
+    .container {
+        width: min(900px, calc(100% - 48px));
+        margin: 0 auto;
+
+        padding: 80px 0;
+    }
+
+    .header {
+        margin-bottom: 48px;
+    }
+
+    .header h1 {
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 500;
+        letter-spacing: 0.02em;
+    }
+
+    .header p {
+        margin-top: 12px;
+
+        color: #666666;
+        font-size: 16px;
+    }
+
+    .search-box {
+        display: flex;
+        gap: 10px;
+
+        margin-bottom: 56px;
+    }
+
+    .search-box input {
+        flex: 1;
+        min-width: 0;
+
+        height: 48px;
+
+        padding: 0 16px;
+
+        border: 1px solid #dcdcdc;
+        border-radius: 8px;
+
+        outline: none;
+
+        font-family:
+            "SFMono-Regular",
+            Consolas,
+            "Liberation Mono",
+            monospace;
+
+        font-size: 14px;
+        text-transform: uppercase;
+
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    .search-box input:focus {
+        border-color: #999999;
+
+        box-shadow:
+            0 0 0 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .search-box button {
+        height: 48px;
+
+        padding: 0 22px;
+
+        border: 0;
+        border-radius: 8px;
+
+        background: #111111;
+        color: #ffffff;
+
+        font-size: 15px;
+        font-family: inherit;
+
+        cursor: pointer;
+
+        transition: opacity 0.2s ease;
+    }
+
+    .search-box button:hover {
+        opacity: 0.75;
+    }
+
+    .section-title {
+        margin-bottom: 20px;
+
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .error-list {
+        display: flex;
+        flex-direction: column;
+
+        border-top: 1px solid #eeeeee;
+    }
+
+    .error-item {
+        display: block;
+
+        padding: 20px 4px;
+
+        border-bottom: 1px solid #eeeeee;
+
+        color: #111111;
+        text-decoration: none;
+
+        font-family:
+            "SFMono-Regular",
+            Consolas,
+            "Liberation Mono",
+            monospace;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        transition: background 0.2s ease;
+    }
+
+    .error-item:hover {
+        background: #fafafa;
+    }
+
+    .status {
+        padding: 20px 4px;
+
+        color: #777777;
+
+        font-size: 14px;
+    }
+
+    .no-result {
+        display: none;
+
+        padding: 32px 4px;
+
+        color: #777777;
+
+        text-align: center;
+    }
+
+    @media (max-width: 600px) {
         .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-
-            width: 100%;
-            height: 72px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 32px;
-
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(10px);
-
-            border-bottom: 1px solid #eeeeee;
-        }
-
-        .brand {
-            color: #111111;
-            text-decoration: none;
-
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .home {
-            color: #111111;
-            text-decoration: none;
-
-            font-size: 15px;
-            font-weight: 500;
-
-            transition: opacity 0.2s ease;
-        }
-
-        .home:hover {
-            opacity: 0.55;
+            padding: 0 20px;
         }
 
         .container {
-            width: min(900px, calc(100% - 48px));
-            margin: 0 auto;
+            width: min(100% - 32px, 900px);
 
-            padding: 80px 0;
-        }
-
-        .header {
-            margin-bottom: 48px;
-        }
-
-        .header h1 {
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 500;
-            letter-spacing: 0.02em;
-        }
-
-        .header p {
-            margin-top: 12px;
-
-            color: #666666;
-            font-size: 16px;
+            padding: 56px 0;
         }
 
         .search-box {
-            display: flex;
-            gap: 10px;
-
-            margin-bottom: 56px;
-        }
-
-        .search-box input {
-            flex: 1;
-            min-width: 0;
-
-            height: 48px;
-
-            padding: 0 16px;
-
-            border: 1px solid #dcdcdc;
-            border-radius: 8px;
-
-            outline: none;
-
-            font-family:
-                "SFMono-Regular",
-                Consolas,
-                "Liberation Mono",
-                monospace;
-
-            font-size: 14px;
-            text-transform: uppercase;
-
-            transition:
-                border-color 0.2s ease,
-                box-shadow 0.2s ease;
-        }
-
-        .search-box input:focus {
-            border-color: #999999;
-
-            box-shadow:
-                0 0 0 3px rgba(0, 0, 0, 0.05);
+            flex-direction: column;
         }
 
         .search-box button {
-            height: 48px;
-
-            padding: 0 22px;
-
-            border: 0;
-            border-radius: 8px;
-
-            background: #111111;
-            color: #ffffff;
-
-            font-size: 15px;
-            font-family: inherit;
-
-            cursor: pointer;
-
-            transition: opacity 0.2s ease;
+            width: 100%;
         }
+    }
+</style>
+```
 
-        .search-box button:hover {
-            opacity: 0.75;
-        }
-
-        .section-title {
-            margin-bottom: 20px;
-
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .error-list {
-            display: flex;
-            flex-direction: column;
-
-            border-top: 1px solid #eeeeee;
-        }
-
-        .error-item {
-            display: block;
-
-            padding: 20px 4px;
-
-            border-bottom: 1px solid #eeeeee;
-
-            color: #111111;
-            text-decoration: none;
-
-            font-family:
-                "SFMono-Regular",
-                Consolas,
-                "Liberation Mono",
-                monospace;
-
-            font-size: 14px;
-            font-weight: 600;
-
-            transition: background 0.2s ease;
-        }
-
-        .error-item:hover {
-            background: #fafafa;
-        }
-
-        .no-result {
-            display: none;
-
-            padding: 32px 4px;
-
-            color: #777777;
-
-            text-align: center;
-        }
-
-        @media (max-width: 600px) {
-            .navbar {
-                padding: 0 20px;
-            }
-
-            .container {
-                width: min(100% - 32px, 900px);
-
-                padding: 56px 0;
-            }
-
-            .search-box {
-                flex-direction: column;
-            }
-
-            .search-box button {
-                width: 100%;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
 <header class="navbar">
 
-    <a class="brand" href="/">
-        AluaPJUnder
-    </a>
+```
+<a class="brand" href="/">
+    AluaPJUnder
+</a>
 
-    <a class="home" href="/">
-        Home
-    </a>
+<a class="home" href="/">
+    Home
+</a>
+```
 
 </header>
 
-
 <main class="container">
 
-    <section class="header">
+```
+<section class="header">
 
-        <h1>Error Code</h1>
+    <h1>Error Code</h1>
 
-        <p>
-            錯誤代碼索引
-        </p>
+    <p>
+        錯誤代碼索引
+    </p>
 
-    </section>
-
-
-    <section class="search-box">
-
-        <input
-            type="search"
-            id="errorSearch"
-            placeholder="輸入錯誤代碼..."
-            autocomplete="off"
-            spellcheck="false"
-        >
-
-        <button
-            type="button"
-            id="searchButton"
-        >
-            搜尋
-        </button>
-
-    </section>
+</section>
 
 
-    <section>
+<section class="search-box">
 
-        <h2 class="section-title">
-            Error Code Index
-        </h2>
+    <input
+        type="search"
+        id="errorSearch"
+        placeholder="輸入錯誤代碼..."
+        autocomplete="off"
+        spellcheck="false"
+    >
 
-        <div
-            class="error-list"
-            id="errorList"
-        ></div>
+    <button
+        type="button"
+        id="searchButton"
+    >
+        搜尋
+    </button>
 
-        <div
-            class="no-result"
-            id="noResult"
-        >
-            找不到符合的錯誤代碼。
-        </div>
+</section>
 
-    </section>
+
+<section>
+
+    <h2 class="section-title">
+        Error Code Index
+    </h2>
+
+    <div
+        class="status"
+        id="status"
+    >
+        正在載入錯誤代碼...
+    </div>
+
+    <div
+        class="error-list"
+        id="errorList"
+    ></div>
+
+    <div
+        class="no-result"
+        id="noResult"
+    >
+        找不到符合的錯誤代碼。
+    </div>
+
+</section>
+```
 
 </main>
-
 
 <script>
 
     /*
      * AluaPJUnder Error Code Index
      *
-     * 規則：
+     * 不自行維護錯誤代碼清單。
      *
-     * 1. 錯誤代碼全部使用大寫。
-     * 2. 單字之間使用底線 (_)。
-     * 3. 錯誤代碼本身就是 HTML 檔名。
+     * 系統會直接讀取 GitHub repository
+     * 的 error_code/ 目錄。
      *
-     * 例如：
-     *
-     * CPU_EXCEPTION_XX
-     *
-     * 對應：
-     *
-     * /error_code/CPU_EXCEPTION_XX.html
+     * 只有實際存在的 .html 檔案
+     * 才會出現在索引中。
      */
 
-    const errorCodes = [
-        "CPU_EXCEPTION_XX"
-    ];
+
+    const GITHUB_API =
+        "https://api.github.com/repos/aluapju/aluapju.github.io/contents/error_code";
 
 
     const errorList =
@@ -334,11 +349,17 @@
     const noResult =
         document.getElementById("noResult");
 
+    const status =
+        document.getElementById("status");
+
     const searchInput =
         document.getElementById("errorSearch");
 
     const searchButton =
         document.getElementById("searchButton");
+
+
+    let errorCodes = [];
 
 
     /*
@@ -350,16 +371,98 @@
      * 0-9
      * _
      *
-     * 且必須以 A-Z 開頭。
+     * 並且必須由英文字母開頭。
      */
 
     function isValidErrorCode(code) {
+
         return /^[A-Z][A-Z0-9_]*$/.test(code);
+
     }
 
 
     /*
-     * 顯示錯誤代碼索引。
+     * 從 GitHub 取得 error_code/
+     * 目前實際存在的檔案。
+     */
+
+    async function loadErrorCodes() {
+
+        try {
+
+            const response =
+                await fetch(GITHUB_API, {
+                    headers: {
+                        "Accept":
+                            "application/vnd.github+json"
+                    }
+                });
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    `GitHub API HTTP ${response.status}`
+                );
+
+            }
+
+
+            const files =
+                await response.json();
+
+
+            errorCodes =
+                files
+                    .filter(file =>
+                        file.type === "file"
+                    )
+                    .filter(file =>
+                        file.name
+                            .toLowerCase()
+                            .endsWith(".html")
+                    )
+                    .filter(file =>
+                        file.name.toLowerCase() !==
+                        "index.html"
+                    )
+                    .map(file =>
+                        file.name.slice(
+                            0,
+                            -".html".length
+                        ).toUpperCase()
+                    )
+                    .filter(code =>
+                        isValidErrorCode(code)
+                    )
+                    .sort();
+
+
+            status.style.display =
+                "none";
+
+
+            renderErrorCodes();
+
+
+        } catch (error) {
+
+            console.error(
+                "Failed to load Error Code index:",
+                error
+            );
+
+
+            status.textContent =
+                "無法載入錯誤代碼索引。";
+
+        }
+
+    }
+
+
+    /*
+     * 顯示錯誤代碼。
      */
 
     function renderErrorCodes(keyword = "") {
@@ -368,6 +471,7 @@
             keyword
                 .trim()
                 .toUpperCase();
+
 
         errorList.innerHTML = "";
 
@@ -380,13 +484,16 @@
 
         if (results.length === 0) {
 
-            noResult.style.display = "block";
+            noResult.style.display =
+                "block";
 
             return;
+
         }
 
 
-        noResult.style.display = "none";
+        noResult.style.display =
+            "none";
 
 
         results.forEach(code => {
@@ -400,7 +507,7 @@
 
 
             /*
-             * 錯誤代碼本身就是檔名。
+             * 錯誤代碼就是檔名。
              */
 
             item.href =
@@ -419,7 +526,10 @@
 
 
     /*
-     * 執行搜尋。
+     * 搜尋。
+     *
+     * 如果完全符合目前存在的錯誤代碼，
+     * 直接開啟對應 HTML。
      */
 
     function searchErrors() {
@@ -435,33 +545,9 @@
             renderErrorCodes();
 
             return;
+
         }
 
-
-        /*
-         * 錯誤代碼格式錯誤時，
-         * 不進行檔案導向。
-         */
-
-        if (!isValidErrorCode(code)) {
-
-            errorList.innerHTML = "";
-
-            noResult.textContent =
-                "錯誤代碼格式無效。";
-
-            noResult.style.display =
-                "block";
-
-            return;
-        }
-
-
-        /*
-         * 完全符合錯誤代碼：
-         *
-         * 直接開啟對應 HTML。
-         */
 
         const exactMatch =
             errorCodes.find(
@@ -475,16 +561,9 @@
                 `/error_code/${exactMatch}.html`;
 
             return;
+
         }
 
-
-        /*
-         * 沒有完全符合時，
-         * 顯示部分搜尋結果。
-         */
-
-        noResult.textContent =
-            "找不到符合的錯誤代碼。";
 
         renderErrorCodes(code);
 
@@ -509,17 +588,12 @@
         "input",
         () => {
 
-            const value =
-                searchInput.value
-                    .toUpperCase();
-
             searchInput.value =
-                value;
+                searchInput.value.toUpperCase();
 
-            noResult.textContent =
-                "找不到符合的錯誤代碼。";
-
-            renderErrorCodes(value);
+            renderErrorCodes(
+                searchInput.value
+            );
 
         }
     );
@@ -534,7 +608,9 @@
         event => {
 
             if (event.key === "Enter") {
+
                 searchErrors();
+
             }
 
         }
@@ -542,10 +618,10 @@
 
 
     /*
-     * 初始載入。
+     * 載入目前目錄中的實際 HTML。
      */
 
-    renderErrorCodes();
+    loadErrorCodes();
 
 </script>
 
