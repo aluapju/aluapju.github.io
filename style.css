@@ -75,3 +75,22 @@ body {
     text-align: center;
     letter-spacing: 0.02em;
 }
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.restore {
+    color: #111111;
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    transition: opacity 0.2s ease;
+}
+
+.restore:hover {
+    opacity: 0.55;
+}
