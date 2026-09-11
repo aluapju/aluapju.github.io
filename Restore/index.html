@@ -75,6 +75,7 @@
 
             font-size: clamp(36px, 6vw, 52px);
             font-weight: 500;
+
             letter-spacing: 0.01em;
         }
 
@@ -117,6 +118,25 @@
             border-left: 3px solid #111111;
 
             color: #333333;
+        }
+
+        .important {
+            margin-top: 32px;
+
+            padding: 24px;
+
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+
+            background: #fafafa;
+        }
+
+        .important strong {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 17px;
         }
 
         .footer {
@@ -165,7 +185,7 @@
     </h1>
 
     <p class="summary">
-        系統檔案與重要元件的恢復機制。
+        系統恢復相關資訊。
     </p>
 
 
@@ -176,13 +196,13 @@
         </h2>
 
         <p>
-            當系統偵測到重要系統檔案遺失或無法正常取得時，
-            可能會影響裝置的正常運作。
+            當系統偵測到重要系統檔案遺失、損壞或無法正常使用時，
+            系統可能無法繼續正常運作。
         </p>
 
         <p>
-            這些檔案可能包含驅動程式、初始系統文件、
-            系統核心所需元件或其他重要系統資料。
+            受影響的檔案可能包含驅動程式、初始系統文件、
+            系統核心所需元件或其他必要的系統檔案。
         </p>
 
     </section>
@@ -191,22 +211,54 @@
     <section class="section">
 
         <h2>
-            系統警示
+            「!」系統狀態
         </h2>
 
         <p>
-            當系統確認重要檔案遺失時，裝置將顯示
-            <strong>「!」</strong> 作為警示。
+            當裝置顯示
+            <strong>「!」</strong>
+            時，表示系統已偵測到無法忽略的重要系統問題，
+            並且無法繼續正常執行。
         </p>
 
         <p>
-            此標誌表示系統偵測到可能影響正常運作的
-            系統檔案或重要元件問題。
+            此狀態不是一般性的警告，而是表示目前的系統環境
+            已不足以維持正常運作。
         </p>
 
-        <div class="notice">
-            顯示「!」並不代表裝置硬體發生故障。
-            其主要用途是提醒使用者系統可能存在檔案遺失或損壞的情況。
+    </section>
+
+
+    <section class="section">
+
+        <h2>
+            如何恢復
+        </h2>
+
+        <p>
+            當裝置顯示「!」時，請使用
+            <strong>Restore Media（恢復媒體）</strong>
+            啟動裝置。
+        </p>
+
+        <p>
+            Restore Media 用於提供必要的恢復環境，
+            以協助修復或重新建立遺失的重要系統檔案，
+            使系統恢復至可正常啟動及運作的狀態。
+        </p>
+
+        <div class="important">
+
+            <strong>
+                請使用恢復媒體
+            </strong>
+
+            <p>
+                如果裝置已顯示「!」，請勿嘗試繼續正常使用目前的系統。
+                請準備適用的 Restore Media，並依照恢復環境中的指示
+                進行系統恢復。
+            </p>
+
         </div>
 
     </section>
@@ -215,18 +267,18 @@
     <section class="section">
 
         <h2>
-            建議處理方式
+            注意事項
         </h2>
 
         <p>
-            如果裝置顯示「!」，建議確認近期是否有進行
-            系統檔案刪除、系統更新、儲存裝置操作或其他可能
-            造成系統檔案變更的操作。
+            系統恢復可能會依照發生的問題採取不同的恢復方式。
+            在進行恢復操作前，請確認所使用的 Restore Media
+            與目前裝置及系統版本相容。
         </p>
 
         <p>
-            若問題持續存在，建議使用系統提供的恢復機制，
-            或將相關資訊回報給 AluaProjects 開發團隊。
+            如果恢復後問題仍然存在，建議將相關錯誤資訊
+            回報給 AluaProjects 開發團隊。
         </p>
 
     </section>
