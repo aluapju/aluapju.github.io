@@ -1,0 +1,259 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CPU_EXCEPTION_PF - AluaPJUnder</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                "Noto Sans TC",
+                "Microsoft JhengHei",
+                sans-serif;
+
+            background: #ffffff;
+            color: #111111;
+
+            line-height: 1.8;
+        }
+
+        .navbar {
+            width: 100%;
+            height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 32px;
+
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .brand {
+            color: #111111;
+            text-decoration: none;
+
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .back {
+            color: #111111;
+            text-decoration: none;
+
+            font-size: 15px;
+        }
+
+        .back:hover {
+            opacity: 0.55;
+        }
+
+        .container {
+            width: min(800px, calc(100% - 48px));
+            margin: 0 auto;
+
+            padding: 80px 0;
+        }
+
+        .error-code {
+            margin-bottom: 16px;
+
+            color: #777777;
+
+            font-family:
+                "SFMono-Regular",
+                Consolas,
+                "Liberation Mono",
+                monospace;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 500;
+        }
+
+        .summary {
+            margin-top: 20px;
+
+            color: #555555;
+
+            font-size: 17px;
+        }
+
+        .section {
+            margin-top: 56px;
+        }
+
+        .section h2 {
+            margin-bottom: 16px;
+
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .section p {
+            color: #333333;
+
+            font-size: 16px;
+        }
+
+        .notice {
+            margin-top: 32px;
+
+            padding: 20px;
+
+            background: #f7f7f7;
+
+            border-left: 3px solid #111111;
+
+            color: #333333;
+        }
+
+        .footer {
+            margin-top: 72px;
+
+            color: #888888;
+
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .container {
+                width: calc(100% - 32px);
+
+                padding: 56px 0;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a class="brand" href="/">
+        AluaPJUnder
+    </a>
+
+    <a class="back" href="/error_code/">
+        Error Code
+    </a>
+
+</header>
+
+
+<main class="container">
+
+    <div class="error-code">
+        CPU_EXCEPTION_PF
+    </div>
+
+    <h1>
+        CPU Exception: Page Fault
+    </h1>
+
+    <p class="summary">
+        CPU 發生頁面錯誤（Page Fault），並觸發系統的
+        ISR 例外處理機制。
+    </p>
+
+
+    <section class="section">
+
+        <h2>
+            錯誤說明
+        </h2>
+
+        <p>
+            此錯誤表示 CPU 在執行程式時發生了
+            Page Fault，代表目前的程式嘗試存取
+            無法正常存取的記憶體區域。
+        </p>
+
+        <p>
+            系統會立即進入 ISR 例外處理系統，
+            嘗試判斷並處理此錯誤。
+        </p>
+
+        <p>
+            如果錯誤無法安全恢復，系統可能會終止
+            發生錯誤的程序，或進入相應的錯誤處理流程。
+        </p>
+
+    </section>
+
+
+    <section class="section">
+
+        <h2>
+            常見原因
+        </h2>
+
+        <p>
+            此錯誤可能由無效記憶體存取、指標錯誤、
+            記憶體管理錯誤、頁面映射問題或其他系統程式問題造成。
+        </p>
+
+    </section>
+
+
+    <section class="section">
+
+        <h2>
+            建議處理方式
+        </h2>
+
+        <p>
+            此錯誤極有可能與系統程式或核心元件有關。
+            如果錯誤可以重現，建議將錯誤情況回報給
+            AluaProjects 開發團隊。
+        </p>
+
+        <div class="notice">
+            詳細崩潰資訊會記錄於 Serial，
+            包含 ISR Error Code 等除錯資訊。
+            如需協助排查問題，請提供相關 Serial Log。
+        </div>
+
+    </section>
+
+
+    <footer class="footer">
+
+        <p>
+            Error Code: CPU_EXCEPTION_PF
+        </p>
+
+        <p>
+            AluaProjects / AluaPJUnder
+        </p>
+
+    </footer>
+
+</main>
+
+</body>
+</html>
+```
