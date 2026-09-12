@@ -1,14 +1,30 @@
+/*
+ * AluaPJUnder
+ * Shared Stylesheet
+ */
+
+
+/* ========================================
+ * Reset
+ * ======================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+
 html,
 body {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
 }
+
+
+/* ========================================
+ * Body
+ * ======================================== */
 
 body {
     font-family:
@@ -21,52 +37,12 @@ body {
 
     background: #ffffff;
     color: #111111;
-
-    animation: pageEnter 0.6s ease-out;
 }
 
 
-/* ================================
-   Page Transition
-   ================================ */
-
-/* 新頁面進入 */
-
-@keyframes pageEnter {
-    from {
-        opacity: 0;
-        filter: blur(14px);
-    }
-
-    to {
-        opacity: 1;
-        filter: blur(0);
-    }
-}
-
-
-/* 舊頁面離開 */
-
-.page-transition {
-    animation: pageLeave 0.6s ease-in forwards;
-}
-
-@keyframes pageLeave {
-    from {
-        opacity: 1;
-        filter: blur(0);
-    }
-
-    to {
-        opacity: 0;
-        filter: blur(14px);
-    }
-}
-
-
-/* ================================
-   Navigation Bar
-   ================================ */
+/* ========================================
+ * Navigation Bar
+ * ======================================== */
 
 .navbar {
     position: fixed;
@@ -82,14 +58,20 @@ body {
     justify-content: space-between;
 
     padding: 0 32px;
+
+    z-index: 100;
 }
 
 
-/* ================================
-   Brand
-   ================================ */
+/* ========================================
+ * Brand
+ * ======================================== */
 
 .brand {
+    color: #111111;
+
+    text-decoration: none;
+
     font-size: 20px;
     font-weight: 600;
 
@@ -97,9 +79,39 @@ body {
 }
 
 
-/* ================================
-   Navigation Links
-   ================================ */
+/* ========================================
+ * Navigation Links
+ * ======================================== */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+
+    gap: 28px;
+}
+
+
+.nav-links a {
+    color: #111111;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    transition: opacity 0.2s ease;
+}
+
+
+.nav-links a:hover {
+    opacity: 0.55;
+}
+
+
+/*
+ * Compatibility with the original
+ * homepage class names.
+ */
 
 .error-code,
 .restore {
@@ -113,28 +125,25 @@ body {
     transition: opacity 0.2s ease;
 }
 
+
 .error-code:hover,
 .restore:hover {
     opacity: 0.55;
 }
 
 
-/* ================================
-   Navigation Link Position
-   ================================ */
-
 .error-code {
     margin-right: 28px;
 }
 
 
-/* ================================
-   Main Content
-   ================================ */
+/* ========================================
+ * Homepage
+ * ======================================== */
 
 .main-content {
     width: 100%;
-    height: 100%;
+    height: 100vh;
 
     display: flex;
     align-items: center;
@@ -143,10 +152,6 @@ body {
     padding: 72px 24px 0;
 }
 
-
-/* ================================
-   Main Title
-   ================================ */
 
 .main-content h1 {
     font-size: clamp(28px, 4vw, 48px);
@@ -159,9 +164,199 @@ body {
 }
 
 
-/* ================================
-   Mobile
-   ================================ */
+/* ========================================
+ * Restore Page
+ * ======================================== */
+
+.restore-page {
+    width: 100%;
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    padding: 140px 24px 80px;
+}
+
+
+.restore-page .title {
+    font-size: clamp(32px, 5vw, 48px);
+
+    font-weight: 500;
+
+    letter-spacing: 0.02em;
+}
+
+
+.restore-page .summary {
+    margin-top: 14px;
+
+    color: #777777;
+
+    font-size: 16px;
+}
+
+
+/* ========================================
+ * Restore Image
+ * ======================================== */
+
+.restore-image {
+    margin-top: 48px;
+
+    text-align: center;
+}
+
+
+.restore-image img {
+    display: block;
+
+    width: 100%;
+    max-width: 500px;
+
+    height: auto;
+
+    margin: 0 auto;
+}
+
+
+.restore-image p {
+    margin-top: 12px;
+
+    color: #888888;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+ * Restore Sections
+ * ======================================== */
+
+.restore-section {
+    margin-top: 56px;
+}
+
+
+.restore-section h2 {
+    font-size: 20px;
+
+    font-weight: 600;
+}
+
+
+.restore-section p {
+    margin-top: 14px;
+
+    color: #444444;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+.restore-section strong {
+    color: #111111;
+
+    font-weight: 600;
+}
+
+
+/* ========================================
+ * Restore Footer
+ * ======================================== */
+
+.restore-footer {
+    margin-top: 72px;
+
+    color: #888888;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+ * Page Transition
+ *
+ * transition.js adds:
+ *
+ * <html class="page-transition">
+ *
+ * ======================================== */
+
+
+/*
+ * Page enter
+ *
+ * Every newly loaded page starts blurred
+ * and gradually becomes clear.
+ */
+
+html {
+    animation:
+        pageEnter
+        0.6s
+        ease-out;
+}
+
+
+@keyframes pageEnter {
+
+    from {
+        opacity: 0;
+
+        filter: blur(14px);
+    }
+
+    to {
+        opacity: 1;
+
+        filter: blur(0);
+    }
+
+}
+
+
+/*
+ * Page leave
+ *
+ * transition.js adds:
+ *
+ * html.page-transition
+ *
+ * The current page becomes blurred
+ * and fades away before navigation.
+ */
+
+html.page-transition {
+    animation:
+        pageLeave
+        0.6s
+        ease-in
+        forwards;
+}
+
+
+@keyframes pageLeave {
+
+    from {
+        opacity: 1;
+
+        filter: blur(0);
+    }
+
+    to {
+        opacity: 0;
+
+        filter: blur(14px);
+    }
+
+}
+
+
+/* ========================================
+ * Mobile
+ * ======================================== */
 
 @media (max-width: 600px) {
 
@@ -169,30 +364,26 @@ body {
         padding: 0 20px;
     }
 
+
+    .nav-links {
+        gap: 20px;
+    }
+
+
     .error-code {
         margin-right: 20px;
     }
+
 
     .main-content {
         padding-left: 16px;
         padding-right: 16px;
     }
 
-}
 
-
-/* ================================
-   Reduced Motion
-   ================================ */
-
-@media (prefers-reduced-motion: reduce) {
-
-    body {
-        animation: none;
-    }
-
-    .page-transition {
-        animation: none;
+    .restore-page {
+        padding-left: 16px;
+        padding-right: 16px;
     }
 
 }
