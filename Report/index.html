@@ -272,7 +272,6 @@
 
 </main>
 
-
 <script>
 
 document.getElementById("report-form").addEventListener(
@@ -282,16 +281,16 @@ document.getElementById("report-form").addEventListener(
         event.preventDefault();
 
         const errorCode =
-            document.getElementById("error-code").value;
+            document.getElementById("error-code").value.trim();
 
         const reproduction =
-            document.getElementById("reproduction").value;
+            document.getElementById("reproduction").value.trim();
 
         const buildVersion =
-            document.getElementById("build-version").value;
+            document.getElementById("build-version").value.trim();
 
         const serial =
-            document.getElementById("serial").value;
+            document.getElementById("serial").value.trim();
 
 
         const title =
@@ -317,22 +316,31 @@ ${serial || "未提供"}
 `;
 
 
-        const url =
-            "https://github.com/aluapju/aluapju.github.io/issues/new"
-            + "?title="
-            + encodeURIComponent(title)
-            + "&body="
-            + encodeURIComponent(body);
+        const githubURL =
+            new URL(
+                "https://github.com/aluapju/aluapju.github.io/issues/new"
+            );
+
+        githubURL.searchParams.set(
+            "title",
+            title
+        );
+
+        githubURL.searchParams.set(
+            "body",
+            body
+        );
 
 
-        window.location.href = url;
+        window.location.assign(
+            githubURL.toString()
+        );
 
     }
 );
 
 </script>
-
-
+    
 <script src="/transition.js"></script>
 
 </body>
