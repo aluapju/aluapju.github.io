@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>COMERR_ACPI_MADT_INIT_FAILED - AluaPJUnder</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a class="brand" href="/">
+        AluaPJUnder
+    </a>
+
+    <nav class="nav-links">
+
+        <a href="/error_code/">
+            Error Code
+        </a>
+
+    </nav>
+
+</header>
+
+<main class="restore-page">
+
+    <h1 class="title">
+        COMERR_ACPI_MADT_INIT_FAILED
+    </h1>
+
+    <p class="summary">
+        系統無法初始化 ACPI 的 MADT（Multiple APIC Description Table）。
+    </p>
+
+    <section class="restore-section">
+
+        <h2>
+            這代表什麼？
+        </h2>
+
+        <p>
+            MADT（Multiple APIC Description Table）是 ACPI
+            用來描述系統中 APIC 與處理器中斷控制相關資訊的重要表格。
+        </p>
+
+        <p>
+            XNKernel 會使用這些資訊來了解平台上的
+            Local APIC、處理器以及其他中斷控制相關元件。
+            這些資訊對系統的中斷處理與多核心支援相當重要。
+        </p>
+
+        <p>
+            如果 MADT 無法正常初始化，
+            系統可能無法正確建立硬體中斷處理環境。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            為什麼會發生？
+        </h2>
+
+        <p>
+            此錯誤可能表示系統無法正常取得、識別或驗證 MADT。
+        </p>
+
+        <p>
+            問題可能與系統韌體提供的 ACPI 資訊、
+            APIC 設定，或系統與平台之間的相容性有關。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            會造成什麼影響？
+        </h2>
+
+        <p>
+            MADT 提供的資訊會影響系統如何建立
+            處理器與中斷控制器之間的關係。
+        </p>
+
+        <p>
+            如果 MADT 無法正常初始化，
+            XNKernel 可能無法可靠地使用平台提供的
+            APIC 與相關中斷功能。
+        </p>
+
+        <p>
+            這可能進一步影響硬體中斷、處理器初始化、
+            多核心功能以及其他依賴中斷控制器的系統功能。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            這是硬體故障嗎？
+        </h2>
+
+        <p>
+            不一定。
+        </p>
+
+        <p>
+            此錯誤表示系統無法正常初始化 MADT，
+            但單獨出現此錯誤並不能直接判定硬體已經損壞。
+        </p>
+
+        <p>
+            問題也可能來自系統韌體、ACPI 表格內容、
+            APIC 設定，或系統與平台之間的相容性問題。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            我需要做什麼？
+        </h2>
+
+        <p>
+            如果這個錯誤只是偶發發生，
+            可以先重新啟動裝置並確認問題是否再次出現。
+        </p>
+
+        <p>
+            如果問題持續發生，
+            建議確認裝置韌體是否為最新版本，
+            並確認系統的 ACPI 與處理器相關設定是否正常。
+        </p>
+
+        <p>
+            如果問題仍然存在，
+            請記錄錯誤畫面以及相關 Serial Log，
+            並提供給 AluaProjects 開發團隊。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            系統會怎麼處理？
+        </h2>
+
+        <p>
+            由於 MADT 提供的資訊對 XNKernel 的中斷處理環境相當重要，
+            如果系統無法確認 MADT 可以正常使用，
+            可能無法安全地繼續進行後續的中斷初始化。
+        </p>
+
+        <p>
+            系統會依照目前的錯誤處理流程進行處理，
+            以避免在中斷控制器資訊不完整或不正確的情況下繼續執行。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            錯誤代碼
+        </h2>
+
+        <p>
+            <strong>COMERR_ACPI_MADT_INIT_FAILED</strong>
+        </p>
+
+        <p>
+            COMERR 表示「相容性錯誤」。
+            ACPI_MADT_INIT_FAILED 表示 MADT 初始化失敗。
+        </p>
+
+    </section>
+
+    <footer class="restore-footer">
+
+        <p>
+            Error Code: COMERR_ACPI_MADT_INIT_FAILED
+        </p>
+
+        <p>
+            AluaProjects / AluaPJUnder
+        </p>
+
+    </footer>
+
+</main>
+
+<script src="/transition.js"></script>
+
+</body>
+
+</html>
