@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Restore Media - AluaPJUnder</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        .restore-page {
+            width: 100%;
+            max-width: 760px;
+
+            margin: 0 auto;
+
+            padding: 140px 24px 80px;
+        }
+
+        .restore-page .title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 500;
+
+            letter-spacing: 0.02em;
+        }
+
+        .restore-page .summary {
+            margin-top: 14px;
+
+            color: #777777;
+
+            font-size: 16px;
+        }
+
+        .restore-image {
+            margin-top: 48px;
+
+            text-align: center;
+        }
+
+        .restore-image img {
+            display: block;
+
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+
+            margin: 0 auto;
+        }
+
+        .restore-image p {
+            margin-top: 12px;
+
+            color: #888888;
+
+            font-size: 14px;
+        }
+
+        .restore-section {
+            margin-top: 56px;
+        }
+
+        .restore-section h2 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .restore-section h3 {
+            margin-top: 28px;
+
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .restore-section p {
+            margin-top: 14px;
+
+            color: #444444;
+
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .restore-section a {
+            color: #111111;
+            text-decoration: none;
+            font-weight: 500;
+
+            transition: opacity 0.2s ease;
+        }
+
+        .restore-section a:hover {
+            opacity: 0.55;
+        }
+
+        .restore-section strong {
+            color: #111111;
+            font-weight: 600;
+        }
+
+        .restore-warning {
+            margin-top: 28px;
+
+            padding: 20px 22px;
+
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+        }
+
+        .restore-warning strong {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 16px;
+        }
+
+        .command {
+            margin-top: 18px;
+
+            padding: 18px 20px;
+
+            overflow-x: auto;
+
+            background: #f5f5f5;
+
+            border-radius: 8px;
+
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.7;
+
+            white-space: pre;
+        }
+
+        .command-title {
+            margin-top: 26px;
+
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .restore-footer {
+            margin-top: 72px;
+
+            color: #888888;
+
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+
+            .restore-page {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .command {
+                font-size: 13px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a class="brand" href="/">
+        AluaPJUnder
+    </a>
+
+    <nav class="nav-links">
+        <a href="/">
+            Home
+        </a>
+    </nav>
+
+</header>
+
+
+<main class="restore-page">
+
+    <h1 class="title">
+        Create Restore Media
+    </h1>
+
+    <p class="summary">
+        使用 XNmakerestore 製作系統恢復環境介質。
+    </p>
+
+
+    <div class="restore-image">
+
+        <img
+            src="/expng/restoreif.png"
+            alt="Restore 環境"
+        >
+
+        <p>
+            Restore Media 用於啟動系統恢復環境
+        </p>
+
+    </div>
+
+
+    <section class="restore-section">
+
+        <h2>
+            XNmakerestore
+        </h2>
+
+        <p>
+            <strong>XNmakerestore</strong>
+            是用於建立 Restore Media（恢復環境介質）的工具。
+        </p>
+
+        <p>
+            製作完成後，可以使用該恢復介質啟動裝置，
+            並進入系統恢復環境以執行恢復操作。
+        </p>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            1. 準備 USB
+        </h2>
+
+        <p>
+            準備一個可以使用的 USB 儲存裝置，
+            並將其連接至需要製作 Restore Media 的電腦。
+        </p>
+
+        <div class="restore-warning">
+
+            <strong>
+                ⚠️ 請注意 USB 內的資料
+            </strong>
+
+            <p>
+                製作 Restore Media 時，XNmakerestore 將會對指定的 USB
+                進行寫入操作。
+            </p>
+
+            <p>
+                <strong>
+                    請確認被使用的 USB 資料已經備份，且 USB 內沒有需要保留的資料。
+                </strong>
+            </p>
+
+            <p>
+                請特別確認指定的磁碟代號沒有選錯。
+                選擇錯誤的磁碟可能導致其他儲存裝置上的資料受到影響。
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            2. 確認 USB 磁碟代號
+        </h2>
+
+        <p>
+            在執行 XNmakerestore 前，
+            請先確認系統分配給 USB 的磁碟代號。
+        </p>
+
+        <p>
+            不同作業系統使用的磁碟代號格式不同。
+            請確認指定的是
+            <strong>USB 裝置本身</strong>，
+            而不是電腦中的其他磁碟。
+        </p>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            3. Linux
+        </h2>
+
+        <p>
+            在 Linux 中，請先使用磁碟管理工具確認
+            USB 所使用的裝置代號。
+        </p>
+
+        <p>
+            確認完成後，在 XNmakerestore 所在的目錄執行：
+        </p>
+
+        <div class="command">sudo ./XNmakerestore -usb /dev/sdX</div>
+
+        <p>
+            請將
+            <strong>/dev/sdX</strong>
+            替換成實際的 USB 裝置代號。
+        </p>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            4. macOS
+        </h2>
+
+        <p>
+            在 macOS 中，請先使用磁碟管理工具確認
+            USB 所使用的磁碟代號。
+        </p>
+
+        <p>
+            確認完成後，在 XNmakerestore 所在的目錄執行：
+        </p>
+
+        <div class="command">sudo ./XNmakerestore -usb /dev/diskX</div>
+
+        <p>
+            請將
+            <strong>/dev/diskX</strong>
+            替換成實際的 USB 磁碟代號。
+        </p>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            5. 等待製作完成
+        </h2>
+
+        <p>
+            執行 XNmakerestore 後，請等待工具完成 Restore Media
+            的製作。
+        </p>
+
+        <p>
+            在製作過程中，請勿移除 USB，
+            也不要中斷 XNmakerestore 的執行。
+        </p>
+
+        <p>
+            製作完成後，USB 即可作為
+            <strong>Restore Media</strong>
+            使用。
+        </p>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            6. 使用 Restore Media
+        </h2>
+
+        <p>
+            將製作完成的 Restore Media 連接至需要恢復的裝置。
+        </p>
+
+        <p>
+            接著從 Restore Media 啟動裝置，
+            並進入恢復環境。
+        </p>
+
+        <p>
+            如果裝置目前顯示六角形內部包含
+            <strong>「!」</strong>
+            的 Restore 狀態，
+            即可依照
+            <a href="/restore/restore">
+                恢復處理步驟
+            </a>
+            進行後續操作。
+        </p>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            注意事項
+        </h2>
+
+        <p>
+            <strong>
+                請務必確認 USB 磁碟代號。
+            </strong>
+        </p>
+
+        <p>
+            XNmakerestore 使用指定的裝置建立 Restore Media。
+            請勿在未確認磁碟代號的情況下直接執行命令。
+        </p>
+
+        <p>
+            如果 USB 中仍有重要資料，
+            請先完成備份，再開始製作 Restore Media。
+        </p>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            返回
+        </h2>
+
+        <p>
+            完成 Restore Media 製作後，
+            可以返回
+            <a href="/restore/restore">
+                恢復處理步驟
+            </a>
+            繼續進行系統恢復。
+        </p>
+
+    </section>
+
+
+    <footer class="restore-footer">
+
+        <p>
+            AluaProjects / AluaPJUnder
+        </p>
+
+    </footer>
+
+</main>
+
+
+<script src="/transition.js"></script>
+
+</body>
+</html>
