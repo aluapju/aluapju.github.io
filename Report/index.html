@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Report - AluaPJUnder</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a class="brand" href="/">
+        AluaPJUnder
+    </a>
+
+    <nav class="nav-links">
+
+        <a href="/">
+            Home
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="restore-page">
+
+    <h1 class="title">
+        Report
+    </h1>
+
+    <p class="summary">
+        回報 AluaProjects / XNKernel 發生的錯誤或異常。
+    </p>
+
+
+    <section class="restore-section">
+
+        <h2>
+            需要回報
+        </h2>
+
+        <p>
+            請提供以下資訊，以協助 AluaProjects 開發團隊確認問題。
+        </p>
+
+
+        <form
+            id="report-form"
+            style="
+                margin-top: 32px;
+            "
+        >
+
+            <div style="
+                margin-top: 24px;
+            ">
+
+                <label
+                    for="error-code"
+                    style="
+                        display: block;
+                        font-size: 15px;
+                        font-weight: 600;
+                    "
+                >
+                    Error code
+                </label>
+
+                <input
+                    id="error-code"
+                    name="error-code"
+                    type="text"
+                    required
+                    style="
+                        width: 100%;
+                        margin-top: 10px;
+                        padding: 12px 0;
+                        border: none;
+                        border-bottom: 1px solid #cccccc;
+                        background: transparent;
+                        color: #111111;
+                        font-size: 16px;
+                        outline: none;
+                    "
+                >
+
+            </div>
+
+
+            <div style="
+                margin-top: 32px;
+            ">
+
+                <label
+                    for="reproduction"
+                    style="
+                        display: block;
+                        font-size: 15px;
+                        font-weight: 600;
+                    "
+                >
+                    觸發方式 / 重現方法
+                </label>
+
+                <textarea
+                    id="reproduction"
+                    name="reproduction"
+                    required
+                    rows="6"
+                    style="
+                        width: 100%;
+                        margin-top: 10px;
+                        padding: 12px 0;
+                        border: none;
+                        border-bottom: 1px solid #cccccc;
+                        background: transparent;
+                        color: #111111;
+                        font-family: inherit;
+                        font-size: 16px;
+                        line-height: 1.8;
+                        resize: vertical;
+                        outline: none;
+                    "
+                ></textarea>
+
+            </div>
+
+
+            <div style="
+                margin-top: 32px;
+            ">
+
+                <label
+                    for="build-version"
+                    style="
+                        display: block;
+                        font-size: 15px;
+                        font-weight: 600;
+                    "
+                >
+                    XNKernel build 版本
+                </label>
+
+                <input
+                    id="build-version"
+                    name="build-version"
+                    type="text"
+                    required
+                    style="
+                        width: 100%;
+                        margin-top: 10px;
+                        padding: 12px 0;
+                        border: none;
+                        border-bottom: 1px solid #cccccc;
+                        background: transparent;
+                        color: #111111;
+                        font-size: 16px;
+                        outline: none;
+                    "
+                >
+
+            </div>
+
+
+            <div style="
+                margin-top: 32px;
+            ">
+
+                <label
+                    for="serial"
+                    style="
+                        display: block;
+                        font-size: 15px;
+                        font-weight: 600;
+                    "
+                >
+                    Serial
+                    <span style="
+                        color: #888888;
+                        font-size: 13px;
+                        font-weight: 400;
+                    ">
+                        （選填）
+                    </span>
+                </label>
+
+                <textarea
+                    id="serial"
+                    name="serial"
+                    rows="10"
+                    style="
+                        width: 100%;
+                        margin-top: 10px;
+                        padding: 12px 0;
+                        border: none;
+                        border-bottom: 1px solid #cccccc;
+                        background: transparent;
+                        color: #111111;
+                        font-family: monospace;
+                        font-size: 14px;
+                        line-height: 1.6;
+                        resize: vertical;
+                        outline: none;
+                    "
+                ></textarea>
+
+            </div>
+
+
+            <div style="
+                margin-top: 40px;
+            ">
+
+                <button
+                    type="submit"
+                    style="
+                        padding: 0;
+                        border: none;
+                        background: transparent;
+                        color: #111111;
+                        font-family: inherit;
+                        font-size: 15px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: opacity 0.2s ease;
+                    "
+                >
+                    前往回報
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            回報前
+        </h2>
+
+        <p>
+            請確認錯誤代碼與 XNKernel build 版本正確。
+            如果可以取得 Serial Log，也建議一併提供。
+        </p>
+
+        <p>
+            Serial Log 可能包含協助開發團隊分析問題的重要資訊。
+        </p>
+
+    </section>
+
+
+    <footer class="restore-footer">
+
+        <p>
+            AluaProjects / AluaPJUnder
+        </p>
+
+    </footer>
+
+</main>
+
+
+<script>
+
+document.getElementById("report-form").addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+        const errorCode =
+            document.getElementById("error-code").value;
+
+        const reproduction =
+            document.getElementById("reproduction").value;
+
+        const buildVersion =
+            document.getElementById("build-version").value;
+
+        const serial =
+            document.getElementById("serial").value;
+
+
+        const title =
+            `[Report] ${errorCode}`;
+
+
+        const body =
+`## Error code
+
+${errorCode}
+
+## 觸發方式 / 重現方法
+
+${reproduction}
+
+## XNKernel build 版本
+
+${buildVersion}
+
+## Serial
+
+${serial || "未提供"}
+`;
+
+
+        const url =
+            "https://github.com/aluapju/aluapju.github.io/issues/new"
+            + "?title="
+            + encodeURIComponent(title)
+            + "&body="
+            + encodeURIComponent(body);
+
+
+        window.location.href = url;
+
+    }
+);
+
+</script>
+
+
+<script src="/transition.js"></script>
+
+</body>
+
+</html>
