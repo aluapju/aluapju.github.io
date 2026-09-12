@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KERNEL_END - AluaPJUnder</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a class="brand" href="/">
+        AluaPJUnder
+    </a>
+
+    <nav class="nav-links">
+
+        <a href="/error_code/">
+            Error Code
+        </a>
+
+    </nav>
+
+</header>
+
+<main class="restore-page">
+
+    <h1 class="title">
+        KERNEL_END
+    </h1>
+
+    <p class="summary">
+        Kernel 非預期終止執行。
+    </p>
+
+    <section class="restore-section">
+
+        <h2>
+            說明
+        </h2>
+
+        <p>
+            此錯誤表示核心程式發生無法安全繼續執行的狀況，
+            因此核心將主動終止目前的執行流程。
+        </p>
+
+        <p>
+            終止執行的目的，是避免錯誤處理器進一步執行，
+            在系統狀態已無法確保安全的情況下，
+            可能造成非法記憶體存取或其他不可預期的行為。
+        </p>
+
+        <p>
+            發生此錯誤後，系統將無法繼續正常運作，
+            並將直接進入崩潰狀態。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            可能原因
+        </h2>
+
+        <p>
+            此錯誤通常表示 Kernel 遇到了無法安全處理或無法恢復的狀態。
+            實際原因需要參考系統輸出的錯誤資訊、
+            Kernel Log 或 Serial Log 進一步判斷。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            系統行為
+        </h2>
+
+        <p>
+            當 Kernel 判定目前狀態已無法安全繼續執行時，
+            系統會停止正常的核心執行流程，
+            避免處理器繼續執行可能造成更嚴重錯誤的程式碼。
+        </p>
+
+        <p>
+            此錯誤屬於不可忽略的核心終止狀態。
+            系統不會嘗試在此狀態下繼續執行正常作業。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            建議
+        </h2>
+
+        <p>
+            如果系統反覆出現此錯誤，請檢查 Kernel Log
+            以及 Serial Log，以確認導致核心終止的實際原因。
+        </p>
+
+    </section>
+
+    <footer class="restore-footer">
+
+        <p>
+            AluaProjects / AluaPJUnder
+        </p>
+
+    </footer>
+
+</main>
+
+<script src="/transition.js"></script>
+
+</body>
+
+</html>
