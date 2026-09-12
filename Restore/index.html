@@ -6,77 +6,10 @@
 
     <title>Restore - AluaPJUnder</title>
 
+    <link rel="stylesheet" href="/style.css">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            width: 100%;
-            min-height: 100%;
-        }
-
-        body {
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                "Noto Sans TC",
-                "Microsoft JhengHei",
-                sans-serif;
-
-            background: #ffffff;
-            color: #111111;
-        }
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-
-            width: 100%;
-            height: 72px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 32px;
-        }
-
-        .brand {
-            color: #111111;
-            text-decoration: none;
-
-            font-size: 20px;
-            font-weight: 600;
-            letter-spacing: 0.2px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-        }
-
-        .nav-links a {
-            color: #111111;
-            text-decoration: none;
-
-            font-size: 15px;
-            font-weight: 500;
-
-            transition: opacity 0.2s ease;
-        }
-
-        .nav-links a:hover {
-            opacity: 0.55;
-        }
-
-        .container {
+        .restore-page {
             width: 100%;
             max-width: 760px;
 
@@ -85,14 +18,14 @@
             padding: 140px 24px 80px;
         }
 
-        .title {
+        .restore-page .title {
             font-size: clamp(32px, 5vw, 48px);
             font-weight: 500;
 
             letter-spacing: 0.02em;
         }
 
-        .summary {
+        .restore-page .summary {
             margin-top: 14px;
 
             color: #777777;
@@ -110,7 +43,7 @@
             display: block;
 
             width: 100%;
-            max-width: 800px;
+            max-width: 500px;
             height: auto;
 
             margin: 0 auto;
@@ -124,16 +57,16 @@
             font-size: 14px;
         }
 
-        .section {
+        .restore-section {
             margin-top: 56px;
         }
 
-        .section h2 {
+        .restore-section h2 {
             font-size: 20px;
             font-weight: 600;
         }
 
-        .section p {
+        .restore-section p {
             margin-top: 14px;
 
             color: #444444;
@@ -142,12 +75,12 @@
             line-height: 1.8;
         }
 
-        .section strong {
+        .restore-section strong {
             color: #111111;
             font-weight: 600;
         }
 
-        .footer {
+        .restore-footer {
             margin-top: 72px;
 
             color: #888888;
@@ -157,15 +90,7 @@
 
         @media (max-width: 600px) {
 
-            .navbar {
-                padding: 0 20px;
-            }
-
-            .nav-links {
-                gap: 20px;
-            }
-
-            .container {
+            .restore-page {
                 padding-left: 16px;
                 padding-right: 16px;
             }
@@ -178,20 +103,26 @@
 
 <header class="navbar">
 
-    <a class="brand" href="/">
+    <div class="brand">
         AluaPJUnder
-    </a>
+    </div>
 
     <nav class="nav-links">
-        <a href="/">
-            Home
+
+        <a href="/error_code/">
+            Error Code
         </a>
+
+        <a href="/Restore/">
+            Restore
+        </a>
+
     </nav>
 
 </header>
 
 
-<main class="container">
+<main class="restore-page">
 
     <h1 class="title">
         Restore
@@ -216,7 +147,7 @@
     </div>
 
 
-    <section class="section">
+    <section class="restore-section">
 
         <h2>
             系統檔案遺失
@@ -235,7 +166,7 @@
     </section>
 
 
-    <section class="section">
+    <section class="restore-section">
 
         <h2>
             「!」系統狀態
@@ -256,7 +187,7 @@
     </section>
 
 
-    <section class="section">
+    <section class="restore-section">
 
         <h2>
             如何恢復
@@ -277,7 +208,7 @@
     </section>
 
 
-    <section class="section">
+    <section class="restore-section">
 
         <h2>
             注意事項
@@ -297,7 +228,7 @@
     </section>
 
 
-    <footer class="footer">
+    <footer class="restore-footer">
 
         <p>
             AluaProjects / AluaPJUnder
@@ -306,6 +237,9 @@
     </footer>
 
 </main>
+
+
+<script src="/transition.js"></script>
 
 </body>
 </html>
