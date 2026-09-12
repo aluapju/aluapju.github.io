@@ -274,7 +274,24 @@ body {
     font-size: 14px;
 }
 
+.main-content a {
+    display: block;
 
+    margin-top: 24px;
+
+    color: #111111;
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    transition: opacity 0.2s ease;
+}
+
+.main-content a:hover {
+    opacity: 0.55;
+}
 /* ========================================
  * Page Transition
  *
