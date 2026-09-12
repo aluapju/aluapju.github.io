@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>COMERR_ACPI_FADT_INIT_FAILED - AluaPJUnder</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a class="brand" href="/">
+        AluaPJUnder
+    </a>
+
+    <nav class="nav-links">
+
+        <a href="/error_code/">
+            Error Code
+        </a>
+
+    </nav>
+
+</header>
+
+<main class="restore-page">
+
+    <h1 class="title">
+        COMERR_ACPI_FADT_INIT_FAILED
+    </h1>
+
+    <p class="summary">
+        系統無法初始化 ACPI 的 FADT（Fixed ACPI Description Table）。
+    </p>
+
+    <section class="restore-section">
+
+        <h2>
+            這代表什麼？
+        </h2>
+
+        <p>
+            FADT（Fixed ACPI Description Table）是 ACPI
+            中的重要系統描述表之一。
+            它提供作業系統進行 ACPI 初始化時所需的固定硬體與平台資訊。
+        </p>
+
+        <p>
+            這些資訊與系統的 ACPI 功能以及電源管理等平台功能有關。
+            如果 FADT 無法正常初始化，
+            系統可能無法取得完整的 ACPI 平台資訊。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            為什麼會發生？
+        </h2>
+
+        <p>
+            此錯誤可能表示系統無法正常取得或驗證 FADT。
+        </p>
+
+        <p>
+            例如 FADT 內容可能不符合系統預期，
+            表格中的資訊可能無法正常使用，
+            或系統韌體提供的 ACPI 資訊與目前系統不相容。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            這是硬體故障嗎？
+        </h2>
+
+        <p>
+            不一定。
+        </p>
+
+        <p>
+            此錯誤主要表示 FADT 無法正常初始化，
+            並不能單獨證明裝置的硬體已經損壞。
+        </p>
+
+        <p>
+            問題可能與系統韌體、ACPI 表格內容，
+            或系統與平台之間的相容性有關。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            我需要做什麼？
+        </h2>
+
+        <p>
+            如果這個錯誤只是偶發發生，
+            可以先重新啟動裝置並確認問題是否再次出現。
+        </p>
+
+        <p>
+            如果問題持續發生，
+            建議確認裝置韌體是否為最新版本，
+            並確認韌體中的相關 ACPI 設定是否正常。
+        </p>
+
+        <p>
+            如果問題仍然存在，
+            請記錄錯誤畫面以及相關 Serial Log，
+            並提供給 AluaProjects 開發團隊。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            系統會怎麼處理？
+        </h2>
+
+        <p>
+            FADT 提供的資訊是 ACPI 初始化的重要組成部分。
+            如果 FADT 無法正常初始化，
+            系統可能無法安全地繼續進行後續的 ACPI 初始化。
+        </p>
+
+        <p>
+            為避免在平台資訊不完整或無法確認的情況下繼續執行，
+            系統可能會停止目前的初始化流程，
+            並進入相應的錯誤處理程序。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            錯誤代碼
+        </h2>
+
+        <p>
+            <strong>COMERR_ACPI_FADT_INIT_FAILED</strong>
+        </p>
+
+        <p>
+            COMERR 表示「相容性錯誤」。
+            ACPI_FADT_INIT_FAILED 表示 FADT 初始化失敗。
+        </p>
+
+    </section>
+
+    <footer class="restore-footer">
+
+        <p>
+            Error Code: COMERR_ACPI_FADT_INIT_FAILED
+        </p>
+
+        <p>
+            AluaProjects / AluaPJUnder
+        </p>
+
+    </footer>
+
+</main>
+
+<script src="/transition.js"></script>
+
+</body>
+
+</html>
