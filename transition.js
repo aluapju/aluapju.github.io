@@ -1,5 +1,3 @@
-console.log("AluaPJUnder transition.js loaded");
-
 document.addEventListener("click", event => {
     const link = event.target.closest("a");
 
@@ -9,12 +7,10 @@ document.addEventListener("click", event => {
 
     const url = new URL(link.href, window.location.href);
 
-    // 只處理本站頁面
     if (url.origin !== window.location.origin) {
         return;
     }
 
-    // 新分頁、特殊按鍵不要攔截
     if (
         event.ctrlKey ||
         event.shiftKey ||
@@ -25,14 +21,19 @@ document.addEventListener("click", event => {
         return;
     }
 
-    // 沒有 View Transition API 就使用正常跳轉
+    if (url.href === window.location.href) {
+        return;
+    }
+
     if (!document.startViewTransition) {
         return;
     }
 
     event.preventDefault();
 
-    document.startViewTransition(async () => {
+    document.documentElement.classList.add("page-transition");
+
+    setTimeout(() => {
         window.location.href = url.href;
-    });
+    }, 600);
 });
