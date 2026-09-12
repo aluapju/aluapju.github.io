@@ -1,97 +1,39 @@
-(() => {
-    "use strict";
+document.addEventListener("click", event => {
+    const link = event.target.closest("a");
 
-    const LEAVE_DURATION = 600;
+    if (!link) {
+        return;
+    }
 
-    /*
-     * Page enter
-     */
-    document.addEventListener("DOMContentLoaded", () => {
-        requestAnimationFrame(() => {
-            document.documentElement.classList.add("page-ready");
-        });
-    });
+    const url = new URL(link.href, window.location.href);
 
+    if (url.origin !== window.location.origin) {
+        return;
+    }
 
-    /*
-     * Page leave
-     */
-    document.addEventListener("click", (event) => {
+    if (
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        event.metaKey ||
+        link.target === "_blank"
+    ) {
+        return;
+    }
 
-        const link = event.target.closest("a");
+    if (url.href === window.location.href) {
+        return;
+    }
 
-        if (!link) {
-            return;
-        }
+    if (!document.startViewTransition) {
+        return;
+    }
 
-        /*
-         * Ignore modified clicks
-         */
-        if (
-            event.ctrlKey ||
-            event.shiftKey ||
-            event.altKey ||
-            event.metaKey
-        ) {
-            return;
-        }
+    event.preventDefault();
 
-        /*
-         * Ignore new-tab links
-         */
-        if (link.target === "_blank") {
-            return;
-        }
+    document.documentElement.classList.add("page-transition");
 
-        const url = new URL(
-            link.href,
-            window.location.href
-        );
-
-        /*
-         * Only handle same-origin links
-         */
-        if (url.origin !== window.location.origin) {
-            return;
-        }
-
-        /*
-         * Same page
-         */
-        if (
-            url.pathname === window.location.pathname &&
-            url.search === window.location.search &&
-            url.hash === window.location.hash
-        ) {
-            return;
-        }
-
-        event.preventDefault();
-
-        /*
-         * Prevent double navigation
-         */
-        if (
-            document.documentElement.classList.contains(
-                "page-leaving"
-            )
-        ) {
-            return;
-        }
-
-        document.documentElement.classList.add(
-            "page-leaving"
-        );
-
-        /*
-         * Navigate after the leave animation.
-         *
-         * Use the exact URL from the clicked link.
-         */
-        setTimeout(() => {
-            window.location.assign(url.href);
-        }, LEAVE_DURATION);
-
-    });
-
-})();
+    setTimeout(() => {
+        window.location.href = url.href;
+    }, 600);
+});
