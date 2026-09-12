@@ -1,3 +1,5 @@
+console.log("AluaPJUnder transition.js loaded");
+
 document.addEventListener("click", event => {
     const link = event.target.closest("a");
 
