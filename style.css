@@ -114,7 +114,9 @@ body {
  */
 
 .error-code,
-.restore {
+.restore,
+.about,
+.report {
     color: #111111;
 
     text-decoration: none;
@@ -127,7 +129,9 @@ body {
 
 
 .error-code:hover,
-.restore:hover {
+.restore:hover,
+.about:hover,
+.report:hover {
     opacity: 0.55;
 }
 
