@@ -1,6 +1,22 @@
-document.addEventListener("DOMContentLoaded", () => {
+(() => {
+    "use strict";
 
-    document.addEventListener("click", event => {
+    const LEAVE_DURATION = 600;
+
+    /*
+     * Page enter
+     */
+    document.addEventListener("DOMContentLoaded", () => {
+        requestAnimationFrame(() => {
+            document.documentElement.classList.add("page-ready");
+        });
+    });
+
+
+    /*
+     * Page leave
+     */
+    document.addEventListener("click", (event) => {
 
         const link = event.target.closest("a");
 
@@ -8,39 +24,74 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const url = new URL(link.href, window.location.href);
-
-        /* 只處理本站連結 */
-        if (url.origin !== window.location.origin) {
-            return;
-        }
-
-        /* 新分頁或特殊按鍵不處理 */
+        /*
+         * Ignore modified clicks
+         */
         if (
             event.ctrlKey ||
             event.shiftKey ||
             event.altKey ||
-            event.metaKey ||
-            link.target === "_blank"
+            event.metaKey
         ) {
             return;
         }
 
-        /* 相同頁面不處理 */
-        if (url.href === window.location.href) {
+        /*
+         * Ignore new-tab links
+         */
+        if (link.target === "_blank") {
+            return;
+        }
+
+        const url = new URL(
+            link.href,
+            window.location.href
+        );
+
+        /*
+         * Only handle same-origin links
+         */
+        if (url.origin !== window.location.origin) {
+            return;
+        }
+
+        /*
+         * Same page
+         */
+        if (
+            url.pathname === window.location.pathname &&
+            url.search === window.location.search &&
+            url.hash === window.location.hash
+        ) {
             return;
         }
 
         event.preventDefault();
 
-        /* 開始離場動畫 */
-        document.body.classList.add("page-transition");
+        /*
+         * Prevent double navigation
+         */
+        if (
+            document.documentElement.classList.contains(
+                "page-leaving"
+            )
+        ) {
+            return;
+        }
 
-        /* 動畫完成後才切換頁面 */
+        document.documentElement.classList.add(
+            "page-leaving"
+        );
+
+        /*
+         * Navigate after the leave animation.
+         *
+         * Use the exact URL from the clicked link.
+         */
         setTimeout(() => {
-            window.location.href = url.href;
-        }, 600);
+            window.location.assign(url.href);
+        }, LEAVE_DURATION);
 
     });
 
-});
+})();
