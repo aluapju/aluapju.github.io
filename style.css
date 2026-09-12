@@ -21,46 +21,18 @@ body {
 
     background: #ffffff;
     color: #111111;
+
+    animation: pageEnter 0.6s ease-out;
 }
 
 
 /* ================================
-   View Transition
+   Page Transition
    ================================ */
 
-@view-transition {
-    navigation: auto;
-}
+/* 新頁面進入 */
 
-
-/* 舊頁面 */
-
-::view-transition-old(root) {
-    animation: oldPage 0.6s ease both;
-}
-
-
-/* 新頁面 */
-
-::view-transition-new(root) {
-    animation: newPage 0.6s ease both;
-}
-
-
-@keyframes oldPage {
-    from {
-        opacity: 1;
-        filter: blur(0);
-    }
-
-    to {
-        opacity: 0;
-        filter: blur(14px);
-    }
-}
-
-
-@keyframes newPage {
+@keyframes pageEnter {
     from {
         opacity: 0;
         filter: blur(14px);
@@ -69,6 +41,25 @@ body {
     to {
         opacity: 1;
         filter: blur(0);
+    }
+}
+
+
+/* 舊頁面離開 */
+
+.page-transition {
+    animation: pageLeave 0.6s ease-in forwards;
+}
+
+@keyframes pageLeave {
+    from {
+        opacity: 1;
+        filter: blur(0);
+    }
+
+    to {
+        opacity: 0;
+        filter: blur(14px);
     }
 }
 
@@ -121,7 +112,6 @@ body {
 
     transition: opacity 0.2s ease;
 }
-
 
 .error-code:hover,
 .restore:hover {
@@ -186,6 +176,23 @@ body {
     .main-content {
         padding-left: 16px;
         padding-right: 16px;
+    }
+
+}
+
+
+/* ================================
+   Reduced Motion
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    body {
+        animation: none;
+    }
+
+    .page-transition {
+        animation: none;
     }
 
 }
