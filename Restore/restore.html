@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Restore Steps - AluaPJUnder</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        .restore-page {
+            width: 100%;
+            max-width: 760px;
+
+            margin: 0 auto;
+
+            padding: 140px 24px 80px;
+        }
+
+        .restore-page .title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 500;
+
+            letter-spacing: 0.02em;
+        }
+
+        .restore-page .summary {
+            margin-top: 14px;
+
+            color: #777777;
+
+            font-size: 16px;
+        }
+
+        .restore-image {
+            margin-top: 48px;
+
+            text-align: center;
+        }
+
+        .restore-image img {
+            display: block;
+
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+
+            margin: 0 auto;
+        }
+
+        .restore-image p {
+            margin-top: 12px;
+
+            color: #888888;
+
+            font-size: 14px;
+        }
+
+        .restore-section {
+            margin-top: 56px;
+        }
+
+        .restore-section h2 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .restore-section p {
+            margin-top: 14px;
+
+            color: #444444;
+
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .restore-section a {
+            color: #111111;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+
+        .restore-section a:hover {
+            opacity: 0.55;
+        }
+
+        .restore-section strong {
+            color: #111111;
+            font-weight: 600;
+        }
+
+        .restore-step {
+            margin-top: 28px;
+        }
+
+        .restore-step h3 {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .restore-step p {
+            margin-top: 10px;
+        }
+
+        .restore-warning {
+            margin-top: 32px;
+
+            padding: 20px 22px;
+
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+        }
+
+        .restore-warning strong {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 16px;
+        }
+
+        .restore-footer {
+            margin-top: 72px;
+
+            color: #888888;
+
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+
+            .restore-page {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a class="brand" href="/">
+        AluaPJUnder
+    </a>
+
+    <nav class="nav-links">
+        <a href="/">
+            Home
+        </a>
+    </nav>
+
+</header>
+
+
+<main class="restore-page">
+
+    <h1 class="title">
+        Restore Steps
+    </h1>
+
+    <p class="summary">
+        系統恢復處理步驟。
+    </p>
+
+
+    <div class="restore-image">
+
+        <img
+            src="/expng/restoreif.png"
+            alt="Restore 模式畫面"
+        >
+
+        <p>
+            僅當裝置顯示六角形內部包含「!」的圖案時，才可進行恢復
+        </p>
+
+    </div>
+
+
+    <section class="restore-section">
+
+        <h2>
+            開始前確認
+        </h2>
+
+        <div class="restore-warning">
+
+            <strong>
+                ⚠️ 請確認裝置目前處於 Restore 狀態
+            </strong>
+
+            <p>
+                本恢復流程僅適用於裝置啟動後顯示
+                <strong>六角形內部包含「!」</strong>
+                的系統恢復狀態。
+            </p>
+
+            <p>
+                如果裝置仍可正常啟動系統，請不要使用此恢復流程。
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            1. 準備 Restore Media
+        </h2>
+
+        <div class="restore-step">
+
+            <p>
+                準備與目前裝置及系統版本相容的
+                <strong>Restore Media（恢復環境介質）</strong>。
+            </p>
+
+            <p>
+                Restore Media 必須包含可供裝置啟動的恢復環境，
+                以便在原本的系統環境無法正常運作時，
+                執行後續恢復操作。
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            2. 連接恢復環境介質
+        </h2>
+
+        <div class="restore-step">
+
+            <p>
+                將 Restore Media 連接至需要恢復的裝置。
+            </p>
+
+            <p>
+                確認裝置可以識別該恢復介質，
+                並確保恢復過程中不要移除或中斷 Restore Media。
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            3. 從 Restore Media 啟動
+        </h2>
+
+        <div class="restore-step">
+
+            <p>
+                使用裝置的啟動選項進入
+                <strong>Restore Media</strong>
+                所提供的恢復環境。
+            </p>
+
+            <p>
+                啟動完成後，確認目前執行的是恢復環境，
+                而不是原本發生問題的系統。
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            4. 掃描系統
+        </h2>
+
+        <div class="restore-step">
+
+            <p>
+                在恢復環境中檢查目前系統的必要檔案與系統元件。
+            </p>
+
+            <p>
+                系統可能會檢查系統核心、驅動程式、
+                初始系統文件以及其他必要元件，
+                以判斷目前的系統環境是否可以被修復。
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            5. 執行系統恢復
+        </h2>
+
+        <div class="restore-step">
+
+            <p>
+                根據掃描結果，恢復環境將嘗試修復或重新建立
+                遺失、損壞或無法正常使用的必要系統檔案。
+            </p>
+
+            <p>
+                恢復處理期間請勿關閉裝置，
+                也不要移除 Restore Media。
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            6. 完成恢復
+        </h2>
+
+        <div class="restore-step">
+
+            <p>
+                當恢復程序完成後，依照恢復環境的提示重新啟動裝置。
+            </p>
+
+            <p>
+                若系統已恢復正常，裝置應能重新進入正常啟動流程。
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            恢復失敗
+        </h2>
+
+        <p>
+            如果恢復完成後裝置仍然顯示六角形
+            <strong>「!」</strong>
+            狀態，表示系統問題可能仍然存在。
+        </p>
+
+        <p>
+            請重新確認 Restore Media 是否與目前裝置及系統版本相容，
+            並記錄恢復環境所提供的錯誤資訊。
+        </p>
+
+        <p>
+            如果問題仍然無法解決，建議將相關錯誤資訊
+            回報給 AluaProjects 開發團隊。
+        </p>
+
+    </section>
+
+
+    <section class="restore-section">
+
+        <h2>
+            重要注意事項
+        </h2>
+
+        <p>
+            <strong>
+                只有在裝置顯示六角形內部包含「!」的 Restore 狀態時，
+                才應使用本恢復流程。
+            </strong>
+        </p>
+
+        <p>
+            Restore Media 是恢復流程的必要環境。
+            在沒有恢復環境介質的情況下，不應嘗試執行本頁所述的恢復操作。
+        </p>
+
+        <p>
+            恢復過程中請保持裝置供電，
+            並避免中斷恢復環境的執行。
+        </p>
+
+    </section>
+
+
+    <footer class="restore-footer">
+
+        <p>
+            AluaProjects / AluaPJUnder
+        </p>
+
+    </footer>
+
+</main>
+
+
+<script src="/transition.js"></script>
+
+</body>
+</html>
