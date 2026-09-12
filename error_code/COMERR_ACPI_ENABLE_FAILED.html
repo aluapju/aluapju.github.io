@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>COMERR_ACPI_ENABLE_FAILED - AluaPJUnder</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a class="brand" href="/">
+        AluaPJUnder
+    </a>
+
+    <nav class="nav-links">
+
+        <a href="/error_code/">
+            Error Code
+        </a>
+
+    </nav>
+
+</header>
+
+<main class="restore-page">
+
+    <h1 class="title">
+        COMERR_ACPI_ENABLE_FAILED
+    </h1>
+
+    <p class="summary">
+        系統無法啟用 ACPI。
+    </p>
+
+    <section class="restore-section">
+
+        <h2>
+            這代表什麼？
+        </h2>
+
+        <p>
+            ACPI 是作業系統與平台韌體之間的重要介面，
+            用於提供硬體組態、電源管理以及其他平台相關功能。
+        </p>
+
+        <p>
+            在系統取得並初始化必要的 ACPI 資訊後，
+            還需要進一步啟用 ACPI 功能。
+            此錯誤表示 XNKernel 在這個階段無法成功啟用 ACPI。
+        </p>
+
+        <p>
+            因此，系統可能無法可靠地使用後續依賴 ACPI
+            的平台功能。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            為什麼會發生？
+        </h2>
+
+        <p>
+            此錯誤可能表示系統韌體沒有正確回應
+            ACPI 啟用要求，或目前平台的 ACPI 狀態
+            無法被系統正常切換。
+        </p>
+
+        <p>
+            問題也可能與韌體實作、ACPI 設定，
+            或系統與平台之間的相容性有關。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            會造成什麼影響？
+        </h2>
+
+        <p>
+            如果 ACPI 無法啟用，
+            XNKernel 可能無法正常使用部分
+            平台管理與電源管理功能。
+        </p>
+
+        <p>
+            此外，其他依賴 ACPI 初始化結果的系統功能
+            也可能無法正常啟動。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            這是硬體故障嗎？
+        </h2>
+
+        <p>
+            不一定。
+        </p>
+
+        <p>
+            此錯誤表示 ACPI 無法成功啟用，
+            但單獨出現此錯誤並不能直接判定硬體已經損壞。
+        </p>
+
+        <p>
+            問題可能來自系統韌體、ACPI 實作、
+            平台設定，或系統與裝置之間的相容性問題。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            我需要做什麼？
+        </h2>
+
+        <p>
+            如果這個錯誤只是偶發發生，
+            可以先重新啟動裝置並確認問題是否再次出現。
+        </p>
+
+        <p>
+            如果問題持續發生，
+            建議確認裝置韌體是否為最新版本，
+            並確認相關平台與 ACPI 設定是否正常。
+        </p>
+
+        <p>
+            如果問題仍然存在，
+            請記錄錯誤畫面以及相關 Serial Log，
+            並提供給 AluaProjects 開發團隊。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            系統會怎麼處理？
+        </h2>
+
+        <p>
+            ACPI 是 XNKernel 初始化平台環境的重要部分。
+            如果 ACPI 無法啟用，
+            系統可能無法確認平台管理功能處於正常狀態。
+        </p>
+
+        <p>
+            為避免在平台管理環境不完整的情況下繼續執行，
+            系統會依照目前的錯誤處理流程進行處理。
+        </p>
+
+    </section>
+
+    <section class="restore-section">
+
+        <h2>
+            錯誤代碼
+        </h2>
+
+        <p>
+            <strong>COMERR_ACPI_ENABLE_FAILED</strong>
+        </p>
+
+        <p>
+            COMERR 表示「相容性錯誤」。
+            ACPI_ENABLE_FAILED 表示 ACPI 啟用失敗。
+        </p>
+
+    </section>
+
+    <footer class="restore-footer">
+
+        <p>
+            Error Code: COMERR_ACPI_ENABLE_FAILED
+        </p>
+
+        <p>
+            AluaProjects / AluaPJUnder
+        </p>
+
+    </footer>
+
+</main>
+
+<script src="/transition.js"></script>
+
+</body>
+
+</html>
