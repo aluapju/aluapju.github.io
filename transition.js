@@ -1,39 +1,46 @@
-document.addEventListener("click", event => {
-    const link = event.target.closest("a");
+document.addEventListener("DOMContentLoaded", () => {
 
-    if (!link) {
-        return;
-    }
+    document.addEventListener("click", event => {
 
-    const url = new URL(link.href, window.location.href);
+        const link = event.target.closest("a");
 
-    if (url.origin !== window.location.origin) {
-        return;
-    }
+        if (!link) {
+            return;
+        }
 
-    if (
-        event.ctrlKey ||
-        event.shiftKey ||
-        event.altKey ||
-        event.metaKey ||
-        link.target === "_blank"
-    ) {
-        return;
-    }
+        const url = new URL(link.href, window.location.href);
 
-    if (url.href === window.location.href) {
-        return;
-    }
+        /* 只處理本站連結 */
+        if (url.origin !== window.location.origin) {
+            return;
+        }
 
-    if (!document.startViewTransition) {
-        return;
-    }
+        /* 新分頁或特殊按鍵不處理 */
+        if (
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey ||
+            event.metaKey ||
+            link.target === "_blank"
+        ) {
+            return;
+        }
 
-    event.preventDefault();
+        /* 相同頁面不處理 */
+        if (url.href === window.location.href) {
+            return;
+        }
 
-    document.documentElement.classList.add("page-transition");
+        event.preventDefault();
 
-    setTimeout(() => {
-        window.location.href = url.href;
-    }, 600);
+        /* 開始離場動畫 */
+        document.body.classList.add("page-transition");
+
+        /* 動畫完成後才切換頁面 */
+        setTimeout(() => {
+            window.location.href = url.href;
+        }, 600);
+
+    });
+
 });
