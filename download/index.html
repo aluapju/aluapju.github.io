@@ -2,225 +2,189 @@
 <html lang="zh-Hant">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>XNKernel — Download</title>
+    <title>Download - XNKernel</title>
 
     <link rel="stylesheet" href="/style.css">
 
-    <script src="/transition.js"></script>
 </head>
 
 <body>
 
-    <header class="navbar">
+<header class="navbar">
 
-        <a class="brand" href="/">
-            AluaPJUnder™
+    <a class="brand" href="/">
+        AluaPJUnder
+    </a>
+
+    <nav class="nav-links">
+
+        <a href="/">
+            Home
         </a>
 
-        <nav class="nav-links">
+    </nav>
 
-            <a href="/error_code/">
-                Error Code
-            </a>
-
-            <a href="/Restore/">
-                Restore
-            </a>
-
-            <a href="/About/">
-                About
-            </a>
-
-            <a href="/Report/">
-                Report
-            </a>
-
-        </nav>
-
-    </header>
+</header>
 
 
-    <main class="download-page">
+<main class="download-page">
 
-        <section class="download-header">
+    <h1 class="download-title">
+        XNKernel Download
+    </h1>
 
-            <p class="project-name">
-                XNKernel
-            </p>
-
-            <h1>
-                Download
-            </h1>
-
-            <p class="subtitle">
-                X Next Kernel
-            </p>
-
-        </section>
+    <p class="download-summary">
+        下載 AluaProjects / XNKernel。
+    </p>
 
 
-        <section class="warning">
+    <section class="download-warning">
 
-            <div class="warning-title">
-                🔴 EXTREMELY UNSTABLE
-            </div>
+        <h2>
+            ⚠️ 極度不穩定版本
+        </h2>
 
-            <p>
-                這是一個極度不穩定的開發版本。
-            </p>
+        <p>
+            本次發布版本目前處於高度開發階段，
+            <strong>很可能無法正常運作。</strong>
+        </p>
 
-            <p>
-                XNKernel 目前仍處於高度開發階段。
-                本次發布版本很可能無法正常運作，
-                並可能在啟動或執行期間發生不可預期的問題。
-            </p>
+        <p>
+            系統很可能在啟動或執行期間直接進入
+            Restore Status、觸發 CPU_EXCEPTION_*、
+            發生 RAM 越界、無效記憶體存取、
+            記憶體損毀或其他不可預期的錯誤。
+        </p>
 
-            <p>
-                本版本很可能：
-            </p>
+        <p>
+            亦可能發生 Kernel Panic、系統停止回應、
+            無法啟動、無預警重新啟動或其他目前尚未發現的問題。
+        </p>
 
-            <ul>
-
-                <li>
-                    直接進入 Restore Status
-                </li>
-
-                <li>
-                    直接觸發 CPU_EXCEPTION_*
-                </li>
-
-                <li>
-                    發生 RAM 越界
-                </li>
-
-                <li>
-                    發生無效記憶體存取
-                </li>
-
-                <li>
-                    發生記憶體損毀
-                </li>
-
-                <li>
-                    發生 Kernel Panic
-                </li>
-
-                <li>
-                    無法正常啟動
-                </li>
-
-                <li>
-                    無預警重新啟動
-                </li>
-
-                <li>
-                    停止回應
-                </li>
-
-                <li>
-                    發生目前尚未發現的其他錯誤或風險
-                </li>
-
-            </ul>
-
-            <p>
+        <p>
+            <strong>
                 以上並非完整列表。
-            </p>
+            </strong>
+        </p>
 
-        </section>
-
-
-        <section class="release">
-
-            <h2>
-                Build 269152115
-            </h2>
-
-            <p>
-                Release time:
-                2026/09/15 21:15
-            </p>
-
-            <p>
-                Architecture:
-                x86_64
-            </p>
-
-            <p>
-                Release type:
-                Development
-            </p>
-
-            <p class="release-status">
-                Status:
-                <strong>
-                    EXTREMELY UNSTABLE
-                </strong>
-            </p>
-
-            <a
-                class="download-button"
-                href="build-269152115.iso"
-                download
-            >
-                Download XNKernel
-            </a>
-
-        </section>
+    </section>
 
 
-        <section class="usage">
+    <section class="download-section">
 
-            <h2>
-                Intended Use
-            </h2>
+        <h2>
+            Latest Build
+        </h2>
 
-            <p>
-                本版本僅建議用於 XNKernel 開發、核心測試、
-                除錯、實驗環境及開發者研究。
-            </p>
-
-            <p>
-                不建議將本版本安裝於主要使用中的電腦，
-                亦不建議用於包含重要資料的系統。
-            </p>
-
-        </section>
-
-
-        <section class="notice">
-
-            <h2>
-                Important Notice
-            </h2>
-
-            <p>
-                XNKernel 是實驗性系統核心。
-            </p>
-
-            <p>
-                AluaProjects 開發團隊不保證本版本不存在錯誤、
-                缺陷或安全漏洞。
-            </p>
-
-            <p>
-                使用本版本前，請確認您已做好資料備份，
-                並了解本版本可能造成的不可預期結果。
-            </p>
-
-        </section>
-
-
-        <footer class="download-footer">
-
+        <p>
             Build 269152115
+        </p>
 
-        </footer>
+        <p>
+            Release time：2026/09/15 21:15
+        </p>
 
-    </main>
+        <p>
+            Architecture：x86_64
+        </p>
+
+        <p>
+            Release type：Development
+        </p>
+
+        <p>
+            Status：
+            <strong>
+                EXTREMELY UNSTABLE
+            </strong>
+        </p>
+
+    </section>
+
+
+    <section class="download-section">
+
+        <h2>
+            Download
+        </h2>
+
+        <p>
+            XNKernel Build 269152115
+        </p>
+
+        <a
+            class="download-button"
+            href="/download/build-269152115.iso"
+            download
+        >
+            Download build-269152115.iso
+        </a>
+
+    </section>
+
+
+    <section class="download-section">
+
+        <h2>
+            使用前
+        </h2>
+
+        <p>
+            本版本僅建議用於 XNKernel 開發、
+            測試、除錯與實驗環境。
+        </p>
+
+        <p>
+            不建議將本版本安裝於主要使用中的電腦，
+            亦不建議使用於包含重要資料的系統。
+        </p>
+
+        <p>
+            使用本版本前，請確認重要資料已完成備份。
+        </p>
+
+    </section>
+
+
+    <section class="download-section">
+
+        <h2>
+            重要聲明
+        </h2>
+
+        <p>
+            XNKernel 是實驗性系統核心。
+        </p>
+
+        <p>
+            AluaProjects 開發團隊不保證本版本不存在錯誤、
+            缺陷或安全漏洞。
+        </p>
+
+        <p>
+            本版本可能造成系統無法正常運作、
+            資料損毀或其他不可預期的結果。
+        </p>
+
+    </section>
+
+
+    <footer class="download-footer">
+
+        <p>
+            AluaProjects / AluaPJUnder
+        </p>
+
+    </footer>
+
+</main>
+
+
+<script src="/transition.js"></script>
 
 </body>
 
