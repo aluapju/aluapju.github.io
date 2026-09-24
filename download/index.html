@@ -87,43 +87,16 @@
         <section class="download-section">
 
             <h2>
-                目前版本
+                Build Index
             </h2>
 
-            <p>
-                Build：<strong>269152150</strong>
-            </p>
+            <div id="build-status">
 
-            <p>
-                發布時間：2026/09/15 21:50
-            </p>
+                正在載入 Build 索引……
 
-            <p>
-                架構：x86_64
-            </p>
+            </div>
 
-            <p>
-                狀態：<strong>EXTREMELY UNSTABLE</strong>
-            </p>
-
-        </section>
-
-
-        <section class="download-section">
-
-            <h2>
-                下載
-            </h2>
-
-            <p>
-                XNKernel Build 269152150。
-            </p>
-
-            <p class="download-link">
-                <a href="build-269241835.iso">
-                    Download build-269241835.iso
-                </a>
-            </p>
+            <div id="build-list"></div>
 
         </section>
 
@@ -173,10 +146,906 @@
 
         <p class="download-footer">
             © 2026 AluaProjects。AluaPJUnder™ 為 AluaProjects
-            旗下的商業名稱。
+            旗下商標。
         </p>
 
     </main>
+
+
+    <script>
+
+        /*
+         * AluaPJUnder / XNKernel Download Index
+         *
+         * 本頁不使用搜尋引擎。
+         *
+         * 系統直接讀取 GitHub repository 的
+         * download/ 目錄，並依實際存在的 Build
+         * 檔案建立索引。
+         *
+         *
+         * 開發階段 Build ID：
+         *
+         *     YYDDDHHMM
+         *
+         * 例如：
+         *
+         *     2026/09/24 15:43
+         *
+         *     26 + 924 + 15 + 43
+         *
+         *     269241543
+         *
+         *
+         * 10 月：
+         *
+         *     XDD
+         *
+         * 11 月：
+         *
+         *     YDD
+         *
+         * 12 月：
+         *
+         *     ZDD
+         *
+         *
+         * 正式 AluaOS 大版本階段：
+         *
+         *     YYMMDDHH
+         *
+         * 例如：
+         *
+         *     2026/12/21 19:23
+         *
+         *     26122119
+         *
+         *
+         * 注意：
+         *
+         * 正式階段 Build ID 不包含分鐘。
+         */
+
+
+        const GITHUB_API =
+            "https://api.github.com/repos/" +
+            "aluapju/aluapju.github.io/contents/download";
+
+
+        const buildStatus =
+            document.getElementById("build-status");
+
+
+        const buildList =
+            document.getElementById("build-list");
+
+
+        let builds = [];
+
+
+        /*
+         * 判斷日期是否為有效日期。
+         *
+         * JavaScript Date 會自動把例如：
+         *
+         *     2026/09/31
+         *
+         * 修正成下一個月份。
+         *
+         * 這裡必須阻止這種情況。
+         */
+
+        function createValidDate(
+            year,
+            month,
+            day,
+            hour,
+            minute
+        ) {
+
+            const date =
+                new Date(
+                    year,
+                    month - 1,
+                    day,
+                    hour,
+                    minute,
+                    0,
+                    0
+                );
+
+
+            if (
+                date.getFullYear() !== year ||
+                date.getMonth() !== month - 1 ||
+                date.getDate() !== day ||
+                date.getHours() !== hour ||
+                date.getMinutes() !== minute
+            ) {
+
+                return null;
+
+            }
+
+
+            return date;
+
+        }
+
+
+        /*
+         * 解析開發階段 Build ID。
+         *
+         * 格式：
+         *
+         *     YYDDDHHMM
+         *
+         * 但檔案名稱為：
+         *
+         *     build-YYDDDHHMM
+         *
+         *
+         * 範例：
+         *
+         *     build-269241543
+         *
+         *     26 924 15 43
+         */
+
+
+        function parseDevelopmentBuild(
+            buildId
+        ) {
+
+            const match =
+                /^build-(\d{2})(\d{3})(\d{2})(\d{2})$/i
+                    .exec(buildId);
+
+
+            if (!match) {
+
+                return null;
+
+            }
+
+
+            const year =
+                2000 + Number(match[1]);
+
+
+            const encodedDate =
+                match[2];
+
+
+            const hour =
+                Number(match[3]);
+
+
+            const minute =
+                Number(match[4]);
+
+
+            let month;
+            let day;
+
+
+            /*
+             * 10 月
+             *
+             * XDD
+             */
+
+            if (
+                encodedDate[0] === "X"
+            ) {
+
+                month = 10;
+
+                day =
+                    Number(
+                        encodedDate.substring(1)
+                    );
+
+            }
+
+
+            /*
+             * 11 月
+             *
+             * YDD
+             */
+
+            else if (
+                encodedDate[0] === "Y"
+            ) {
+
+                month = 11;
+
+                day =
+                    Number(
+                        encodedDate.substring(1)
+                    );
+
+            }
+
+
+            /*
+             * 12 月
+             *
+             * ZDD
+             */
+
+            else if (
+                encodedDate[0] === "Z"
+            ) {
+
+                month = 12;
+
+                day =
+                    Number(
+                        encodedDate.substring(1)
+                    );
+
+            }
+
+
+            /*
+             * 1～9 月
+             *
+             * MDD
+             */
+
+            else {
+
+                month =
+                    Number(
+                        encodedDate[0]
+                    );
+
+                day =
+                    Number(
+                        encodedDate.substring(1)
+                    );
+
+            }
+
+
+            /*
+             * 檢查月份。
+             */
+
+            if (
+                month < 1 ||
+                month > 12
+            ) {
+
+                return null;
+
+            }
+
+
+            /*
+             * 檢查小時。
+             */
+
+            if (
+                hour < 0 ||
+                hour > 23
+            ) {
+
+                return null;
+
+            }
+
+
+            /*
+             * 檢查分鐘。
+             */
+
+            if (
+                minute < 0 ||
+                minute > 59
+            ) {
+
+                return null;
+
+            }
+
+
+            const date =
+                createValidDate(
+                    year,
+                    month,
+                    day,
+                    hour,
+                    minute
+                );
+
+
+            if (!date) {
+
+                return null;
+
+            }
+
+
+            return {
+
+                id: buildId,
+
+                type: "development",
+
+                date: date,
+
+                timestamp:
+                    date.getTime()
+
+            };
+
+        }
+
+
+        /*
+         * 解析正式 AluaOS Build ID。
+         *
+         * 格式：
+         *
+         *     YYMMDDHH
+         *
+         * 範例：
+         *
+         *     26122119
+         *
+         *     26 12 21 19
+         *
+         *
+         * 正式 Build ID 不包含分鐘。
+         */
+
+
+        function parseReleaseBuild(
+            buildId
+        ) {
+
+            const match =
+                /^(\d{2})(\d{2})(\d{2})(\d{2})$/
+                    .exec(buildId);
+
+
+            if (!match) {
+
+                return null;
+
+            }
+
+
+            const year =
+                2000 + Number(match[1]);
+
+
+            const month =
+                Number(match[2]);
+
+
+            const day =
+                Number(match[3]);
+
+
+            const hour =
+                Number(match[4]);
+
+
+            if (
+                month < 1 ||
+                month > 12
+            ) {
+
+                return null;
+
+            }
+
+
+            if (
+                hour < 0 ||
+                hour > 23
+            ) {
+
+                return null;
+
+            }
+
+
+            const date =
+                createValidDate(
+                    year,
+                    month,
+                    day,
+                    hour,
+                    0
+                );
+
+
+            if (!date) {
+
+                return null;
+
+            }
+
+
+            return {
+
+                id: buildId,
+
+                type: "release",
+
+                date: date,
+
+                timestamp:
+                    date.getTime()
+
+            };
+
+        }
+
+
+        /*
+         * 判斷一個檔案是否為 Build。
+         *
+         * 開發階段：
+         *
+         *     build-269241543.iso
+         *
+         *
+         * 正式階段：
+         *
+         *     26122119.iso
+         *
+         *
+         * 這裡不限定副檔名。
+         *
+         * 只要檔名符合 Build ID，
+         * 就可以進入索引。
+         */
+
+
+        function parseBuildFile(
+            filename
+        ) {
+
+            const lastDot =
+                filename.lastIndexOf(".");
+
+
+            let name =
+                filename;
+
+
+            let extension =
+                "";
+
+
+            if (lastDot > 0) {
+
+                name =
+                    filename.substring(
+                        0,
+                        lastDot
+                    );
+
+
+                extension =
+                    filename.substring(
+                        lastDot
+                    );
+
+            }
+
+
+            /*
+             * 開發階段。
+             */
+
+            if (
+                /^build-\d{2}\d{3}\d{2}\d{2}$/i
+                    .test(name)
+            ) {
+
+                const build =
+                    parseDevelopmentBuild(
+                        name
+                    );
+
+
+                if (!build) {
+
+                    return null;
+
+                }
+
+
+                build.filename =
+                    filename;
+
+
+                build.extension =
+                    extension;
+
+
+                return build;
+
+            }
+
+
+            /*
+             * 正式階段。
+             */
+
+            if (
+                /^\d{8}$/.test(name)
+            ) {
+
+                const build =
+                    parseReleaseBuild(
+                        name
+                    );
+
+
+                if (!build) {
+
+                    return null;
+
+                }
+
+
+                build.filename =
+                    filename;
+
+
+                build.extension =
+                    extension;
+
+
+                return build;
+
+            }
+
+
+            return null;
+
+        }
+
+
+        /*
+         * 將時間轉換成網站顯示格式。
+         */
+
+
+        function formatDate(
+            build
+        ) {
+
+            const date =
+                build.date;
+
+
+            const year =
+                date.getFullYear();
+
+
+            const month =
+                String(
+                    date.getMonth() + 1
+                ).padStart(2, "0");
+
+
+            const day =
+                String(
+                    date.getDate()
+                ).padStart(2, "0");
+
+
+            const hour =
+                String(
+                    date.getHours()
+                ).padStart(2, "0");
+
+
+            const minute =
+                String(
+                    date.getMinutes()
+                ).padStart(2, "0");
+
+
+            if (
+                build.type ===
+                "development"
+            ) {
+
+                return (
+                    year +
+                    "/" +
+                    month +
+                    "/" +
+                    day +
+                    " " +
+                    hour +
+                    ":" +
+                    minute
+                );
+
+            }
+
+
+            /*
+             * 正式 Build ID 沒有分鐘。
+             */
+
+            return (
+                year +
+                "/" +
+                month +
+                "/" +
+                day +
+                " " +
+                hour +
+                ":00"
+            );
+
+        }
+
+
+        /*
+         * 建立一個 Build 項目。
+         *
+         * 使用原本 Download 頁面
+         * 已存在的 CSS class。
+         */
+
+
+        function createBuildItem(
+            build
+        ) {
+
+            const section =
+                document.createElement(
+                    "section"
+                );
+
+
+            section.className =
+                "download-section";
+
+
+            const title =
+                document.createElement(
+                    "h2"
+                );
+
+
+            title.textContent =
+                build.id;
+
+
+            section.appendChild(
+                title
+            );
+
+
+            const info =
+                document.createElement(
+                    "p"
+                );
+
+
+            if (
+                build.type ===
+                "development"
+            ) {
+
+                info.innerHTML =
+                    "開發階段 Build<br>" +
+                    "編譯時間：" +
+                    formatDate(build);
+
+            }
+            else {
+
+                info.innerHTML =
+                    "AluaOS 正式 Build<br>" +
+                    "編譯時間：" +
+                    formatDate(build);
+
+            }
+
+
+            section.appendChild(
+                info
+            );
+
+
+            const download =
+                document.createElement(
+                    "p"
+                );
+
+
+            download.className =
+                "download-link";
+
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.href =
+                "./" +
+                encodeURIComponent(
+                    build.filename
+                );
+
+
+            link.textContent =
+                "Download " +
+                build.filename;
+
+
+            link.download =
+                build.filename;
+
+
+            download.appendChild(
+                link
+            );
+
+
+            section.appendChild(
+                download
+            );
+
+
+            return section;
+
+        }
+
+
+        /*
+         * 顯示 Build Index。
+         */
+
+
+        function renderBuilds()
+        {
+
+            buildList.innerHTML =
+                "";
+
+
+            /*
+             * 最新 → 最舊
+             */
+
+            builds.sort(
+                (a, b) =>
+                    b.timestamp -
+                    a.timestamp
+            );
+
+
+            if (
+                builds.length === 0
+            ) {
+
+                buildStatus.textContent =
+                    "目前沒有可用的 Build。";
+
+                return;
+
+            }
+
+
+            buildStatus.style.display =
+                "none";
+
+
+            builds.forEach(
+                build => {
+
+                    buildList.appendChild(
+                        createBuildItem(
+                            build
+                        )
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+         * 從 GitHub 取得 download/
+         * 目前實際存在的檔案。
+         */
+
+
+        async function loadBuilds()
+        {
+
+            try {
+
+                const response =
+                    await fetch(
+                        GITHUB_API,
+                        {
+                            headers: {
+                                "Accept":
+                                    "application/vnd.github+json"
+                            }
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "GitHub API HTTP " +
+                        response.status
+                    );
+
+                }
+
+
+                const files =
+                    await response.json();
+
+
+                builds =
+                    files
+                        .filter(
+                            file =>
+                                file.type ===
+                                "file"
+                        )
+                        .map(
+                            file =>
+                                parseBuildFile(
+                                    file.name
+                                )
+                        )
+                        .filter(
+                            build =>
+                                build !== null
+                        );
+
+
+                renderBuilds();
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Failed to load XNKernel Build index:",
+                    error
+                );
+
+
+                buildStatus.textContent =
+                    "無法載入 Build 索引。";
+
+            }
+
+        }
+
+
+        /*
+         * 開始載入。
+         */
+
+        loadBuilds();
+
+    </script>
 
 
     <script src="../transition.js"></script>
