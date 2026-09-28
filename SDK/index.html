@@ -1,0 +1,547 @@
+<!DOCTYPE html> <html lang="zh-Hant"> <head> <meta charset="UTF-8">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>SDK — AluaProjects</title>
+
+<link rel="stylesheet" href="../style.css">
+
+</head> <body>
+<!-- Navigation -->
+
+<nav class="navbar">
+
+    <a
+        href="../"
+        class="brand"
+    >
+        AluaPJUnder™
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="/">
+            Home
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- SDK -->
+
+<main class="download-page">
+
+    <h1 class="download-title">
+        SDK
+    </h1>
+
+
+    <p class="download-summary">
+        下載 AluaProjects SDK。
+    </p>
+
+
+    <section class="download-warning">
+
+        <h2>
+            開發工具
+        </h2>
+
+        <p>
+            SDK 供 AluaProjects 相關軟體、
+            系統與應用程式開發使用。
+        </p>
+
+        <p>
+            請依照你的開發環境與專案需求，
+            選擇對應的 SDK 版本。
+        </p>
+
+    </section>
+
+
+    <section class="download-section">
+
+        <h2>
+            SDK Index
+        </h2>
+
+        <div id="sdk-status">
+
+            正在載入 SDK 索引……
+
+        </div>
+
+        <div id="sdk-list"></div>
+
+    </section>
+
+
+    <section class="download-section">
+
+        <h2>
+            使用前
+        </h2>
+
+        <p>
+            使用 SDK 前，請確認所使用的版本
+            與你的開發環境及目標平台相容。
+        </p>
+
+        <p>
+            不同版本的 SDK 可能包含不同的 API、
+            功能、修正或相容性要求。
+        </p>
+
+    </section>
+
+
+    <section class="download-section">
+
+        <h2>
+            免責聲明
+        </h2>
+
+        <p>
+            SDK 目前可能仍處於持續開發階段。
+            軟體可能包含錯誤、缺陷、限制或安全漏洞。
+        </p>
+
+        <p>
+            AluaProjects 不保證 SDK 不存在錯誤、
+            缺陷或安全漏洞。使用者應依自身環境與需求，
+            自行評估使用開發中軟體所可能產生的風險。
+        </p>
+
+    </section>
+
+
+    <p class="download-footer">
+        © 2026 AluaProjects。AluaPJUnder™ 為 AluaProjects
+        旗下商標。
+    </p>
+
+</main>
+
+
+<script>
+
+    /*
+     * AluaPJUnder / SDK Download Index
+     *
+     * 本頁不使用搜尋引擎。
+     *
+     * 系統直接讀取 GitHub repository 的
+     * SDK/ 目錄，並依實際存在的 SDK-X.X.X.zip
+     * 建立動態索引。
+     *
+     *
+     * 支援格式：
+     *
+     *     SDK-1.0.0.zip
+     *     SDK-1.2.3.zip
+     *     SDK-2.0.0.zip
+     *
+     *
+     * 版本號：
+     *
+     *     MAJOR.MINOR.PATCH
+     *
+     *
+     * 顯示順序：
+     *
+     *     最新版本 → 最舊版本
+     *
+     *
+     * 注意：
+     *
+     * GitHub SDK/ 目錄中不存在的檔案
+     * 不會出現在索引中。
+     */
+
+
+    const GITHUB_API =
+        "https://api.github.com/repos/" +
+        "aluapju/aluapju.github.io/contents/SDK";
+
+
+    const sdkStatus =
+        document.getElementById("sdk-status");
+
+
+    const sdkList =
+        document.getElementById("sdk-list");
+
+
+    let sdks = [];
+
+
+    /*
+     * 解析 SDK 檔案名稱。
+     *
+     * 只接受：
+     *
+     *     SDK-X.X.X.zip
+     *
+     *
+     * 例如：
+     *
+     *     SDK-1.0.0.zip
+     *
+     *     SDK-2.15.3.zip
+     *
+     *
+     * 不符合格式的檔案會被忽略。
+     */
+
+
+    function parseSDKFile(
+        filename
+    ) {
+
+        const match =
+            /^SDK-(\d+)\.(\d+)\.(\d+)\.zip$/i
+                .exec(filename);
+
+
+        if (!match) {
+
+            return null;
+
+        }
+
+
+        const major =
+            Number(match[1]);
+
+
+        const minor =
+            Number(match[2]);
+
+
+        const patch =
+            Number(match[3]);
+
+
+        return {
+
+            filename:
+                filename,
+
+            version:
+                major +
+                "." +
+                minor +
+                "." +
+                patch,
+
+            major:
+                major,
+
+            minor:
+                minor,
+
+            patch:
+                patch
+
+        };
+
+    }
+
+
+    /*
+     * 比較兩個 SDK 版本。
+     *
+     * 使用 Semantic Versioning
+     * 的基本 MAJOR / MINOR / PATCH
+     * 比較方式。
+     */
+
+
+    function compareVersions(
+        a,
+        b
+    ) {
+
+        if (
+            a.major !==
+            b.major
+        ) {
+
+            return (
+                b.major -
+                a.major
+            );
+
+        }
+
+
+        if (
+            a.minor !==
+            b.minor
+        ) {
+
+            return (
+                b.minor -
+                a.minor
+            );
+
+        }
+
+
+        return (
+            b.patch -
+            a.patch
+        );
+
+    }
+
+
+    /*
+     * 建立 SDK 項目。
+     *
+     * 使用原本 Download 頁面
+     * 已存在的 CSS class。
+     *
+     * 因此不需要修改 style.css。
+     */
+
+
+    function createSDKItem(
+        sdk
+    ) {
+
+        const section =
+            document.createElement(
+                "section"
+            );
+
+
+        section.className =
+            "download-section";
+
+
+        const title =
+            document.createElement(
+                "h2"
+            );
+
+
+        title.textContent =
+            "SDK " +
+            sdk.version;
+
+
+        section.appendChild(
+            title
+        );
+
+
+        const info =
+            document.createElement(
+                "p"
+            );
+
+
+        info.innerHTML =
+            "AluaProjects SDK<br>" +
+            "版本：" +
+            sdk.version;
+
+
+        section.appendChild(
+            info
+        );
+
+
+        const download =
+            document.createElement(
+                "p"
+            );
+
+
+        download.className =
+            "download-link";
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            "./" +
+            encodeURIComponent(
+                sdk.filename
+            );
+
+
+        link.textContent =
+            "Download " +
+            sdk.filename;
+
+
+        link.download =
+            sdk.filename;
+
+
+        download.appendChild(
+            link
+        );
+
+
+        section.appendChild(
+            download
+        );
+
+
+        return section;
+
+    }
+
+
+    /*
+     * 顯示 SDK Index。
+     */
+
+
+    function renderSDKs()
+    {
+
+        sdkList.innerHTML =
+            "";
+
+
+        /*
+         * 最新版本 → 最舊版本
+         */
+
+        sdks.sort(
+            compareVersions
+        );
+
+
+        if (
+            sdks.length === 0
+        ) {
+
+            sdkStatus.textContent =
+                "目前沒有可用的 SDK。";
+
+            return;
+
+        }
+
+
+        sdkStatus.style.display =
+            "none";
+
+
+        sdks.forEach(
+            sdk => {
+
+                sdkList.appendChild(
+                    createSDKItem(
+                        sdk
+                    )
+                );
+
+            }
+        );
+
+    }
+
+
+    /*
+     * 從 GitHub 取得 SDK/
+     * 目前實際存在的檔案。
+     */
+
+
+    async function loadSDKs()
+    {
+
+        try {
+
+            const response =
+                await fetch(
+                    GITHUB_API,
+                    {
+                        headers: {
+                            "Accept":
+                                "application/vnd.github+json"
+                        }
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "GitHub API HTTP " +
+                    response.status
+                );
+
+            }
+
+
+            const files =
+                await response.json();
+
+
+            sdks =
+                files
+                    .filter(
+                        file =>
+                            file.type ===
+                            "file"
+                    )
+                    .map(
+                        file =>
+                            parseSDKFile(
+                                file.name
+                            )
+                    )
+                    .filter(
+                        sdk =>
+                            sdk !== null
+                    );
+
+
+            renderSDKs();
+
+        }
+        catch (error) {
+
+            console.error(
+                "Failed to load SDK index:",
+                error
+            );
+
+
+            sdkStatus.textContent =
+                "無法載入 SDK 索引。";
+
+        }
+
+    }
+
+
+    /*
+     * 開始載入 SDK。
+     */
+
+    loadSDKs();
+
+</script>
+
+
+<script src="../transition.js"></script>
+
+</body> </html>
