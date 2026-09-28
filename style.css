@@ -117,7 +117,8 @@ body {
 .restore,
 .about,
 .report,
-.download {
+.download,
+.SDK {
     color: #111111;
 
     text-decoration: none;
@@ -133,7 +134,8 @@ body {
 .restore:hover,
 .about:hover,
 .report:hover,
-.download:hover {
+.download:hover,
+.SDK:hover {
     opacity: 0.55;
 }
 
