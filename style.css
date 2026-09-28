@@ -46,51 +46,6 @@ color: #111111;
 
 /* ========================================
 
-Navigation Bar
-
-======================================== */
-
-.navbar {
-position: fixed;
-
-top: 0;
-left: 0;
-
-width: 100%;
-height: 72px;
-
-display: flex;
-align-items: center;
-justify-content: space-between;
-
-padding: 0 32px;
-
-z-index: 100;
-
-
-}
-
-/* ========================================
-
-Brand
-
-======================================== */
-
-.brand {
-color: #111111;
-
-text-decoration: none;
-
-font-size: 20px;
-font-weight: 600;
-
-letter-spacing: 0.2px;
-
-
-}
-
-/* ========================================
-
 Navigation Links
 
 ======================================== */
@@ -99,8 +54,7 @@ Navigation Links
 display: flex;
 align-items: center;
 
-gap: 16px; /* 原為 28px：縮短 Flex 佈局的連結間距 */
-flex-wrap: wrap; /* 避免選單超出畫面 */
+gap: 14px; /* 如果有用 .nav-links 父容器，縮短這裡的距離 */
 
 
 }
@@ -114,8 +68,6 @@ font-size: 15px;
 font-weight: 500;
 
 transition: opacity 0.2s ease;
-
-white-space: nowrap;
 
 
 }
@@ -146,9 +98,16 @@ font-weight: 500;
 
 transition: opacity 0.2s ease;
 
-white-space: nowrap;
+display: inline-block; /* 確保邊距計算正確 */
+
+margin-right: 14px; /* 統一縮短所有選項之間的距離（原本是 28px 且只有 error-code 有） */
 
 
+}
+
+/* 正確讓最後一個選項 (.SDK) 貼齊右側，不被推出去超出畫面 */
+.SDK {
+margin-right: 0;
 }
 
 .error-code:hover,
@@ -160,10 +119,10 @@ white-space: nowrap;
 opacity: 0.55;
 }
 
+/* 覆蓋掉原本單獨給 .error-code 的舊設定 */
 .error-code {
-margin-right: 16px; /* 原為 28px：縮短舊版相容 class 的間距 */
+margin-right: 14px;
 }
-
 /* ========================================
 
 Homepage
