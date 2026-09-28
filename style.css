@@ -61,13 +61,14 @@ Navigation Bar
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+
+    /* Do NOT use space-between */
+    justify-content: flex-start;
 
     padding: 0 24px;
 
     z-index: 100;
 
-    /* Prevent navbar content from overflowing */
     min-width: 0;
 }
 
@@ -91,6 +92,8 @@ Brand
     white-space: nowrap;
 
     flex-shrink: 0;
+
+    margin-right: 24px;
 }
 
 
@@ -104,14 +107,17 @@ Navigation Links
     display: flex;
     align-items: center;
 
-    /* Reduced spacing between navigation items */
-    gap: 18px;
+    /*
+     * All navigation items are controlled
+     * by this single gap.
+     */
+    gap: 14px;
 
     min-width: 0;
+
     flex-shrink: 1;
 
-    /* Keep all links on one line */
-    white-space: nowrap;
+    overflow: hidden;
 }
 
 
@@ -127,7 +133,7 @@ Navigation Links
 
     white-space: nowrap;
 
-    flex-shrink: 1;
+    flex-shrink: 0;
 }
 
 
@@ -136,12 +142,12 @@ Navigation Links
 }
 
 
-/*
+/* ========================================
 
 Compatibility with the original
-homepage class names.
+homepage class names
 
-*/
+======================================== */
 
 .error-code,
 .restore,
@@ -159,6 +165,8 @@ homepage class names.
     transition: opacity 0.2s ease;
 
     white-space: nowrap;
+
+    flex-shrink: 0;
 }
 
 
@@ -173,15 +181,16 @@ homepage class names.
 
 
 /*
-No additional margin here.
-
-The spacing is controlled entirely
-by .nav-links gap.
-*/
+ * IMPORTANT:
+ * Do not add extra margin to .error-code.
+ * .nav-links gap handles all spacing.
+ */
 
 .error-code {
     margin-right: 0;
 }
+
+
 /* ========================================
 
 Mobile
@@ -193,22 +202,23 @@ Mobile
     .navbar {
         padding: 0 16px;
 
-        /* Keep navbar inside viewport */
-        width: 100%;
+        justify-content: flex-start;
+
         overflow: hidden;
     }
 
 
     .brand {
         font-size: 18px;
+
+        margin-right: 16px;
     }
 
 
     .nav-links {
-        gap: 12px;
+        gap: 10px;
 
         min-width: 0;
-        flex-shrink: 1;
 
         overflow: hidden;
     }
@@ -224,6 +234,8 @@ Mobile
         font-size: 13px;
 
         white-space: nowrap;
+
+        flex-shrink: 0;
     }
 
 
