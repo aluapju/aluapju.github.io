@@ -54,7 +54,7 @@ Navigation Links
 display: flex;
 align-items: center;
 
-gap: 14px; /* 縮短 .nav-links 架構下的連結距離 (原為 28px) */
+gap: 12px; /* 將 Flex 間距從 28px 縮短到 12px */
 
 
 }
@@ -98,7 +98,7 @@ font-weight: 500;
 
 transition: opacity 0.2s ease;
 
-margin-left: 14px; /* 改用 margin-left：將選單向右靠齊，且每個選項間距統一為 14px */
+margin-right: 12px; /* 讓每個選項之間都保持 12px 間距，不會有選項黏在一起 */
 
 
 }
@@ -113,9 +113,13 @@ opacity: 0.55;
 }
 
 .error-code {
-margin-right: 0; /* 清除原本推擠右邊的大距離，解決超出畫面問題 */
-margin-left: auto; /* 將散落的舊版 class 選單整體推至 Navbar 最右側 */
+margin-right: 12px; /* 覆蓋原本過大的 28px，避免把後面選項推爆出畫面 */
 }
+
+.SDK {
+margin-right: 0; /* 清除最後一個選項的右邊距，讓它完美留在畫面上 */
+}
+
 /* ========================================
 
 Homepage
