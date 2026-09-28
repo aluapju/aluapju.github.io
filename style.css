@@ -128,7 +128,7 @@ Brand
 Navigation Items
 
 ======================================== */
-
+.home,
 .error-code,
 .restore,
 .about,
@@ -156,7 +156,7 @@ Navigation Items
     margin-right: 0;
 }
 
-
+.home:hover,
 .error-code:hover,
 .restore:hover,
 .about:hover,
