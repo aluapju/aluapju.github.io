@@ -99,7 +99,8 @@ Navigation Links
 display: flex;
 align-items: center;
 
-gap: 28px;
+gap: 16px; /* 原為 28px：縮短 Flex 佈局的連結間距 */
+flex-wrap: wrap; /* 避免選單超出畫面 */
 
 
 }
@@ -113,6 +114,8 @@ font-size: 15px;
 font-weight: 500;
 
 transition: opacity 0.2s ease;
+
+white-space: nowrap;
 
 
 }
@@ -143,6 +146,8 @@ font-weight: 500;
 
 transition: opacity 0.2s ease;
 
+white-space: nowrap;
+
 
 }
 
@@ -156,7 +161,7 @@ opacity: 0.55;
 }
 
 .error-code {
-margin-right: 28px;
+margin-right: 16px; /* 原為 28px：縮短舊版相容 class 的間距 */
 }
 
 /* ========================================
