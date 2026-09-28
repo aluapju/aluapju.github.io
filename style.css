@@ -54,7 +54,7 @@ Navigation Links
 display: flex;
 align-items: center;
 
-gap: 14px; /* 如果有用 .nav-links 父容器，縮短這裡的距離 */
+gap: 14px; /* 縮短 .nav-links 架構下的連結距離 (原為 28px) */
 
 
 }
@@ -98,16 +98,9 @@ font-weight: 500;
 
 transition: opacity 0.2s ease;
 
-display: inline-block; /* 確保邊距計算正確 */
-
-margin-right: 14px; /* 統一縮短所有選項之間的距離（原本是 28px 且只有 error-code 有） */
+margin-left: 14px; /* 改用 margin-left：將選單向右靠齊，且每個選項間距統一為 14px */
 
 
-}
-
-/* 正確讓最後一個選項 (.SDK) 貼齊右側，不被推出去超出畫面 */
-.SDK {
-margin-right: 0;
 }
 
 .error-code:hover,
@@ -119,10 +112,11 @@ margin-right: 0;
 opacity: 0.55;
 }
 
-/* 覆蓋掉原本單獨給 .error-code 的舊設定 */
 .error-code {
-margin-right: 14px;
+margin-right: 0; /* 清除原本推擠右邊的大距離，解決超出畫面問題 */
+margin-left: auto; /* 將散落的舊版 class 選單整體推至 Navbar 最右側 */
 }
+
 /* ========================================
 
 Homepage
