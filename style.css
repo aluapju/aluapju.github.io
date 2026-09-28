@@ -80,57 +80,79 @@ body {
 
 
 /* ========================================
-   Navigation Links
+
+Navigation Links
+
 ======================================== */
 
 .nav-links {
-    display: flex;
-    align-items: center;
-    /* 將原來的 gap: 28px 縮小至 16px */
-    gap: 16px; 
-    
-    /* 避免連結過多時超出畫面，允許換行或保持彈性 */
-    flex-wrap: wrap; 
+display: flex;
+align-items: center;
+
+gap: 14px; /* 原為 28px，縮短距離 */
+flex-wrap: wrap; /* 避免選單過長時超出畫面 */
+
+
 }
 
 .nav-links a {
-    color: #111111;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    transition: opacity 0.2s ease;
-    
-    /* 避免單個文字標題換行 */
-    white-space: nowrap; 
+color: #111111;
+
+text-decoration: none;
+
+font-size: 15px;
+font-weight: 500;
+
+transition: opacity 0.2s ease;
+
+white-space: nowrap; /* 避免單個連結標題換行破版 */
+
+
 }
 
-/* 針對相容舊版 class 的邊距一併縮小 */
+.nav-links a:hover {
+opacity: 0.55;
+}
+
+/*
+
+Compatibility with the original
+
+homepage class names.
+*/
+
+.error-code,
+.restore,
+.about,
+.report,
+.download,
+.SDK {
+color: #111111;
+
+text-decoration: none;
+
+font-size: 15px;
+font-weight: 500;
+
+transition: opacity 0.2s ease;
+
+white-space: nowrap;
+
+
+}
+
+.error-code:hover,
+.restore:hover,
+.about:hover,
+.report:hover,
+.download:hover,
+.SDK:hover {
+opacity: 0.55;
+}
+
 .error-code {
-    /* 將原來的 margin-right: 28px 縮小至 16px */
-    margin-right: 16px; 
+margin-right: 14px; /* 原為 28px，縮短距離 */
 }
-
-/* ========================================
-   Mobile (手機版響應式)
-======================================== */
-
-@media (max-width: 600px) {
-    .navbar {
-        /* 縮小 navbar左右內邊距，留更多空間給文字 */
-        padding: 0 16px; 
-    }
-
-    .nav-links {
-        /* 手機版進一步將間距縮小至 10px~12px */
-        gap: 12px; 
-    }
-
-    .error-code {
-        margin-right: 12px;
-    }
-}
-
-
 /* ========================================
  * Homepage
  * ======================================== */
