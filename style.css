@@ -61,8 +61,6 @@ Navigation Bar
 
     display: flex;
     align-items: center;
-
-    /* Do NOT use space-between */
     justify-content: flex-start;
 
     padding: 0 24px;
@@ -107,48 +105,20 @@ Navigation Links
     display: flex;
     align-items: center;
 
-    /*
-     * All navigation items are controlled
-     * by this single gap.
-     */
     gap: 16px;
 
     min-width: 0;
-
     flex-shrink: 1;
-
-    overflow: hidden;
-}
-
-
-.nav-links a {
-    color: #111111;
-
-    text-decoration: none;
-
-    font-size: 15px;
-    font-weight: 500;
-
-    transition: opacity 0.2s ease;
-
-    white-space: nowrap;
-
-    flex-shrink: 0;
-}
-
-
-.nav-links a:hover {
-    opacity: 0.55;
 }
 
 
 /* ========================================
 
-Compatibility with the original
-homepage class names
+Navigation Items
 
 ======================================== */
 
+.nav-links a,
 .error-code,
 .restore,
 .about,
@@ -170,6 +140,7 @@ homepage class names
 }
 
 
+.nav-links a:hover,
 .error-code:hover,
 .restore:hover,
 .about:hover,
@@ -181,12 +152,23 @@ homepage class names
 
 
 /*
- * IMPORTANT:
- * Do not add extra margin to .error-code.
- * .nav-links gap handles all spacing.
- */
+Important:
+Do not add individual margins.
+
+The .nav-links gap controls
+all navigation spacing.
+*/
 
 .error-code {
+    margin-right: 0;
+}
+
+.restore,
+.about,
+.report,
+.download,
+.SDK {
+    margin-left: 0;
     margin-right: 0;
 }
 
@@ -201,8 +183,6 @@ Mobile
 
     .navbar {
         padding: 0 16px;
-
-        justify-content: flex-start;
 
         overflow: hidden;
     }
@@ -232,54 +212,6 @@ Mobile
     .download,
     .SDK {
         font-size: 13px;
-
-        white-space: nowrap;
-
-        flex-shrink: 0;
-    }
-
-
-    .error-code {
-        margin-right: 0;
-    }
-
-
-    .main-content {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
-
-    .restore-page {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
-
-    .download-page {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
-
-    .warning {
-        padding: 20px;
-    }
-
-
-    .download-header h1 {
-        font-size: clamp(34px, 12vw, 48px);
-    }
-
-
-    .download-button {
-        max-width: 100%;
-
-        overflow: hidden;
-
-        text-overflow: ellipsis;
-
-        white-space: nowrap;
     }
 
 }
