@@ -3,7 +3,9 @@
 AluaPJUnder
 
 Shared Stylesheet
+
 */
+
 
 /* ========================================
 
@@ -11,17 +13,25 @@ Reset
 
 ======================================== */
 
-{
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+
+/* ========================================
+
+HTML / Body
+
+======================================== */
 
 html,
 body {
-width: 100%;
-min-height: 100%;
+    width: 100%;
+    min-height: 100%;
 }
+
 
 /* ========================================
 
@@ -30,19 +40,18 @@ Body
 ======================================== */
 
 body {
-font-family:
--apple-system,
-BlinkMacSystemFont,
-"Segoe UI",
-"Noto Sans TC",
-"Microsoft JhengHei",
-sans-serif;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        sans-serif;
 
-background: #ffffff;
-color: #111111;
-
-
+    background: #ffffff;
+    color: #111111;
 }
+
 
 /* ========================================
 
@@ -61,13 +70,28 @@ Navigation Bar
 
     display: flex;
     align-items: center;
+
+    /*
+     * Keep all navbar items together.
+     */
     justify-content: flex-start;
+
+    /*
+     * Control spacing between every item.
+     */
+    gap: 16px;
 
     padding: 0 24px;
 
     z-index: 100;
 
     min-width: 0;
+
+    /*
+     * Prevent navbar from extending
+     * outside the viewport.
+     */
+    overflow: hidden;
 }
 
 
@@ -91,24 +115,11 @@ Brand
 
     flex-shrink: 0;
 
-    margin-right: 24px;
-}
-
-
-/* ========================================
-
-Navigation Links
-
-======================================== */
-
-.nav-links {
-    display: flex;
-    align-items: center;
-
-    gap: 16px;
-
-    min-width: 0;
-    flex-shrink: 1;
+    /*
+     * Slightly more space between
+     * the brand and the first link.
+     */
+    margin-right: 8px;
 }
 
 
@@ -118,7 +129,6 @@ Navigation Items
 
 ======================================== */
 
-.nav-links a,
 .error-code,
 .restore,
 .about,
@@ -137,10 +147,16 @@ Navigation Items
     white-space: nowrap;
 
     flex-shrink: 0;
+
+    /*
+     * Spacing is controlled by
+     * .navbar gap.
+     */
+    margin-left: 0;
+    margin-right: 0;
 }
 
 
-.nav-links a:hover,
 .error-code:hover,
 .restore:hover,
 .about:hover,
@@ -151,25 +167,527 @@ Navigation Items
 }
 
 
-/*
-Important:
-Do not add individual margins.
+/* ========================================
 
-The .nav-links gap controls
-all navigation spacing.
-*/
+Homepage
 
-.error-code {
-    margin-right: 0;
+======================================== */
+
+.main-content {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 72px 24px 0;
 }
 
-.restore,
-.about,
-.report,
-.download,
-.SDK {
-    margin-left: 0;
-    margin-right: 0;
+
+.main-content h1 {
+    font-size: clamp(28px, 4vw, 48px);
+
+    font-weight: 500;
+
+    text-align: center;
+
+    letter-spacing: 0.02em;
+}
+
+
+.main-content a {
+    display: block;
+
+    margin-top: 24px;
+
+    color: #111111;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    transition: opacity 0.2s ease;
+}
+
+
+.main-content a:hover {
+    opacity: 0.55;
+}
+
+
+/* ========================================
+
+Restore Page
+
+======================================== */
+
+.restore-page {
+    width: 100%;
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    padding: 140px 24px 80px;
+}
+
+
+.restore-page .title {
+    font-size: clamp(32px, 5vw, 48px);
+
+    font-weight: 500;
+
+    letter-spacing: 0.02em;
+}
+
+
+.restore-page .summary {
+    margin-top: 14px;
+
+    color: #777777;
+
+    font-size: 16px;
+}
+
+
+/* ========================================
+
+Restore Image
+
+======================================== */
+
+.restore-image {
+    margin-top: 48px;
+
+    text-align: center;
+}
+
+
+.restore-image img {
+    display: block;
+
+    width: 100%;
+    max-width: 500px;
+
+    height: auto;
+
+    margin: 0 auto;
+}
+
+
+.restore-image p {
+    margin-top: 12px;
+
+    color: #888888;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+
+Restore Sections
+
+======================================== */
+
+.restore-section {
+    margin-top: 56px;
+}
+
+
+.restore-section h2 {
+    font-size: 20px;
+
+    font-weight: 600;
+}
+
+
+.restore-section p {
+    margin-top: 14px;
+
+    color: #444444;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+.restore-section strong {
+    color: #111111;
+
+    font-weight: 600;
+}
+
+
+/* ========================================
+
+Restore Footer
+
+======================================== */
+
+.restore-footer {
+    margin-top: 72px;
+
+    color: #888888;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+
+Page Transition
+
+transition.js adds:
+
+<html class="page-transition">
+
+======================================== */
+
+
+/*
+Page enter
+
+Every newly loaded page starts blurred
+and gradually becomes clear.
+*/
+
+html {
+    animation:
+        pageEnter
+        0.6s
+        ease-out;
+}
+
+
+@keyframes pageEnter {
+
+    from {
+        opacity: 0;
+        filter: blur(14px);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+
+}
+
+
+/*
+Page leave
+
+transition.js adds:
+
+html.page-transition
+
+The current page becomes blurred
+and fades away before navigation.
+*/
+
+html.page-transition {
+    animation:
+        pageLeave
+        0.6s
+        ease-in
+        forwards;
+}
+
+
+@keyframes pageLeave {
+
+    from {
+        opacity: 1;
+        filter: blur(0);
+    }
+
+    to {
+        opacity: 0;
+        filter: blur(14px);
+    }
+
+}
+
+
+/* ========================================
+
+XNKernel / Download Page
+
+======================================== */
+
+.download-page {
+    width: 100%;
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    padding: 140px 24px 80px;
+}
+
+
+/* ========================================
+
+Download Header
+
+======================================== */
+
+.download-header .project-name {
+    color: #777777;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    margin-bottom: 8px;
+}
+
+
+.download-header h1 {
+    font-size: clamp(36px, 6vw, 56px);
+
+    font-weight: 500;
+
+    letter-spacing: 0.02em;
+}
+
+
+.download-header .subtitle {
+    margin-top: 12px;
+
+    color: #777777;
+
+    font-size: 16px;
+}
+
+
+/* ========================================
+
+Warning
+
+======================================== */
+
+.warning {
+    margin-top: 48px;
+
+    padding: 28px;
+
+    border: 1px solid #dddddd;
+}
+
+
+.warning-title {
+    color: #c00000;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    letter-spacing: 0.02em;
+}
+
+
+.warning p {
+    margin-top: 16px;
+
+    color: #444444;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+.warning ul {
+    margin-top: 16px;
+
+    padding-left: 24px;
+}
+
+
+.warning li {
+    margin-top: 8px;
+
+    color: #444444;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* ========================================
+
+Release
+
+======================================== */
+
+.release {
+    margin-top: 56px;
+}
+
+
+.release h2 {
+    font-size: 24px;
+
+    font-weight: 600;
+}
+
+
+.release p {
+    margin-top: 12px;
+
+    color: #666666;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+.release-status strong {
+    color: #c00000;
+}
+
+
+/* ========================================
+
+SDK Index
+
+======================================== */
+
+#sdk-list {
+    width: 100%;
+}
+
+
+#sdk-status {
+    margin-top: 12px;
+
+    color: #666666;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/*
+SDK entries generated by JavaScript
+
+Each entry uses:
+
+.release
+
+so the existing visual style remains
+unchanged.
+*/
+
+#sdk-list .release {
+    margin-top: 40px;
+}
+
+
+#sdk-list .release:first-child {
+    margin-top: 28px;
+}
+
+
+#sdk-list .release h2 {
+    font-size: 24px;
+
+    font-weight: 600;
+}
+
+
+#sdk-list .release p {
+    margin-top: 12px;
+
+    color: #666666;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* ========================================
+
+Download Button
+
+======================================== */
+
+.download-button {
+    display: inline-block;
+
+    margin-top: 28px;
+
+    padding: 14px 24px;
+
+    background: #111111;
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    transition:
+        opacity 0.2s ease;
+}
+
+
+.download-button:hover {
+    opacity: 0.7;
+}
+
+
+/* ========================================
+
+Information Sections
+
+======================================== */
+
+.usage,
+.notice {
+    margin-top: 56px;
+}
+
+
+.usage h2,
+.notice h2 {
+    font-size: 20px;
+
+    font-weight: 600;
+}
+
+
+.usage p,
+.notice p {
+    margin-top: 14px;
+
+    color: #444444;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* ========================================
+
+Footer
+
+======================================== */
+
+.download-footer {
+    margin-top: 72px;
+
+    color: #999999;
+
+    font-size: 13px;
 }
 
 
@@ -184,6 +702,8 @@ Mobile
     .navbar {
         padding: 0 16px;
 
+        gap: 10px;
+
         overflow: hidden;
     }
 
@@ -191,20 +711,10 @@ Mobile
     .brand {
         font-size: 18px;
 
-        margin-right: 16px;
+        margin-right: 4px;
     }
 
 
-    .nav-links {
-        gap: 10px;
-
-        min-width: 0;
-
-        overflow: hidden;
-    }
-
-
-    .nav-links a,
     .error-code,
     .restore,
     .about,
@@ -214,618 +724,43 @@ Mobile
         font-size: 13px;
     }
 
-}
 
-/* ========================================
+    .main-content {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
 
-Homepage
 
-======================================== */
+    .restore-page {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
 
-.main-content {
-width: 100%;
-height: 100vh;
 
-display: flex;
-align-items: center;
-justify-content: center;
+    .download-page {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
 
-padding: 72px 24px 0;
 
+    .warning {
+        padding: 20px;
+    }
 
-}
 
-.main-content h1 {
-font-size: clamp(28px, 4vw, 48px);
+    .download-header h1 {
+        font-size: clamp(34px, 12vw, 48px);
+    }
 
-font-weight: 500;
 
-text-align: center;
+    .download-button {
+        max-width: 100%;
 
-letter-spacing: 0.02em;
+        overflow: hidden;
 
+        text-overflow: ellipsis;
 
-}
-
-.main-content a {
-display: block;
-
-margin-top: 24px;
-
-color: #111111;
-
-text-align: center;
-
-text-decoration: none;
-
-font-size: 15px;
-font-weight: 500;
-
-transition: opacity 0.2s ease;
-
-
-}
-
-.main-content a:hover {
-opacity: 0.55;
-}
-
-/* ========================================
-
-Restore Page
-
-======================================== */
-
-.restore-page {
-width: 100%;
-max-width: 760px;
-
-margin: 0 auto;
-
-padding: 140px 24px 80px;
-
-
-}
-
-.restore-page .title {
-font-size: clamp(32px, 5vw, 48px);
-
-font-weight: 500;
-
-letter-spacing: 0.02em;
-
-
-}
-
-.restore-page .summary {
-margin-top: 14px;
-
-color: #777777;
-
-font-size: 16px;
-
-
-}
-
-/* ========================================
-
-Restore Image
-
-======================================== */
-
-.restore-image {
-margin-top: 48px;
-
-text-align: center;
-
-
-}
-
-.restore-image img {
-display: block;
-
-width: 100%;
-max-width: 500px;
-
-height: auto;
-
-margin: 0 auto;
-
-
-}
-
-.restore-image p {
-margin-top: 12px;
-
-color: #888888;
-
-font-size: 14px;
-
-
-}
-
-/* ========================================
-
-Restore Sections
-
-======================================== */
-
-.restore-section {
-margin-top: 56px;
-}
-
-.restore-section h2 {
-font-size: 20px;
-
-font-weight: 600;
-
-
-}
-
-.restore-section p {
-margin-top: 14px;
-
-color: #444444;
-
-font-size: 16px;
-
-line-height: 1.8;
-
-
-}
-
-.restore-section strong {
-color: #111111;
-
-font-weight: 600;
-
-
-}
-
-/* ========================================
-
-Restore Footer
-
-======================================== */
-
-.restore-footer {
-margin-top: 72px;
-
-color: #888888;
-
-font-size: 14px;
-
-
-}
-
-/* ========================================
-
-Page Transition
-
-transition.js adds:
-
-<html class="page-transition">
-
-======================================== */
-
-/*
-
-Page enter
-
-Every newly loaded page starts blurred
-
-and gradually becomes clear.
-*/
-
-html {
-animation:
-pageEnter
-0.6s
-ease-out;
-}
-
-@keyframes pageEnter {
-
-from {
-    opacity: 0;
-    filter: blur(14px);
-}
-
-to {
-    opacity: 1;
-    filter: blur(0);
-}
-
-
-}
-
-/*
-
-Page leave
-
-transition.js adds:
-
-html.page-transition
-
-The current page becomes blurred
-
-and fades away before navigation.
-*/
-
-html.page-transition {
-animation:
-pageLeave
-0.6s
-ease-in
-forwards;
-}
-
-@keyframes pageLeave {
-
-from {
-    opacity: 1;
-    filter: blur(0);
-}
-
-to {
-    opacity: 0;
-    filter: blur(14px);
-}
-
-
-}
-
-/* ========================================
-
-XNKernel / Download Page
-
-======================================== */
-
-.download-page {
-width: 100%;
-max-width: 760px;
-
-margin: 0 auto;
-
-padding: 140px 24px 80px;
-
-
-}
-
-/* ========================================
-
-Download Header
-
-======================================== */
-
-.download-header .project-name {
-color: #777777;
-
-font-size: 15px;
-font-weight: 500;
-
-margin-bottom: 8px;
-
-
-}
-
-.download-header h1 {
-font-size: clamp(36px, 6vw, 56px);
-
-font-weight: 500;
-
-letter-spacing: 0.02em;
-
-
-}
-
-.download-header .subtitle {
-margin-top: 12px;
-
-color: #777777;
-
-font-size: 16px;
-
-
-}
-
-/* ========================================
-
-Warning
-
-======================================== */
-
-.warning {
-margin-top: 48px;
-
-padding: 28px;
-
-border: 1px solid #dddddd;
-
-
-}
-
-.warning-title {
-color: #c00000;
-
-font-size: 18px;
-font-weight: 700;
-
-letter-spacing: 0.02em;
-
-
-}
-
-.warning p {
-margin-top: 16px;
-
-color: #444444;
-
-font-size: 16px;
-
-line-height: 1.8;
-
-
-}
-
-.warning ul {
-margin-top: 16px;
-
-padding-left: 24px;
-
-
-}
-
-.warning li {
-margin-top: 8px;
-
-color: #444444;
-
-font-size: 15px;
-
-line-height: 1.7;
-
-
-}
-
-/* ========================================
-
-Release
-
-======================================== */
-
-.release {
-margin-top: 56px;
-}
-
-.release h2 {
-font-size: 24px;
-
-font-weight: 600;
-
-
-}
-
-.release p {
-margin-top: 12px;
-
-color: #666666;
-
-font-size: 15px;
-
-line-height: 1.7;
-
-
-}
-
-.release-status strong {
-color: #c00000;
-}
-
-/* ========================================
-
-SDK Index
-
-======================================== */
-
-#sdk-list {
-width: 100%;
-}
-
-#sdk-status {
-margin-top: 12px;
-
-color: #666666;
-
-font-size: 15px;
-
-line-height: 1.7;
-
-
-}
-
-/*
-
-SDK entries generated by JavaScript
-
-Each entry uses:
-
-.release
-
-
-so the existing visual style remains
-
-unchanged.
-*/
-
-#sdk-list .release {
-margin-top: 40px;
-}
-
-#sdk-list .release:first-child {
-margin-top: 28px;
-}
-
-#sdk-list .release h2 {
-font-size: 24px;
-
-font-weight: 600;
-
-
-}
-
-#sdk-list .release p {
-margin-top: 12px;
-
-color: #666666;
-
-font-size: 15px;
-
-line-height: 1.7;
-
-
-}
-
-/* ========================================
-
-Download Button
-
-======================================== */
-
-.download-button {
-display: inline-block;
-
-margin-top: 28px;
-
-padding: 14px 24px;
-
-background: #111111;
-color: #ffffff;
-
-text-decoration: none;
-
-font-size: 15px;
-font-weight: 500;
-
-transition:
-    opacity 0.2s ease;
-
-
-}
-
-.download-button:hover {
-opacity: 0.7;
-}
-
-/* ========================================
-
-Information Sections
-
-======================================== */
-
-.usage,
-.notice {
-margin-top: 56px;
-}
-
-.usage h2,
-.notice h2 {
-font-size: 20px;
-
-font-weight: 600;
-
-
-}
-
-.usage p,
-.notice p {
-margin-top: 14px;
-
-color: #444444;
-
-font-size: 16px;
-
-line-height: 1.8;
-
-
-}
-
-/* ========================================
-
-Footer
-
-======================================== */
-
-.download-footer {
-margin-top: 72px;
-
-color: #999999;
-
-font-size: 13px;
-
-
-}
-
-/* ========================================
-
-Mobile
-
-======================================== */
-
-@media (max-width: 600px) {
-
-.navbar {
-    padding: 0 20px;
-}
-
-
-.nav-links {
-    gap: 20px;
-}
-
-
-.error-code {
-    margin-right: 20px;
-}
-
-
-.main-content {
-    padding-left: 16px;
-    padding-right: 16px;
-}
-
-
-.restore-page {
-    padding-left: 16px;
-    padding-right: 16px;
-}
-
-
-.download-page {
-    padding-left: 16px;
-    padding-right: 16px;
-}
-
-
-.warning {
-    padding: 20px;
-}
-
-
-.download-header h1 {
-    font-size: clamp(34px, 12vw, 48px);
-}
-
-
-.download-button {
-    max-width: 100%;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-}
-
+        white-space: nowrap;
+    }
 
 }
