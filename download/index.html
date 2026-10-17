@@ -15,7 +15,7 @@
 
 <body>
 
-     <nav class="navbar">
+    <nav class="navbar">
 
         <a
             href="../"
@@ -73,7 +73,7 @@
 
             <p>
                 <strong>
-                    以上並非完整列表（針對於9月份Build ID ）。
+                    以上並非完整列表（針對於 9 月份 Build ID）。
                 </strong>
             </p>
 
@@ -87,9 +87,7 @@
             </h2>
 
             <div id="build-status">
-
                 正在載入 Build 索引……
-
             </div>
 
             <div id="build-list"></div>
@@ -153,37 +151,32 @@
         /*
          * AluaPJUnder / XNKernel Download Index
          *
-         * 本頁不使用搜尋引擎。
-         *
-         * 系統直接讀取 GitHub repository 的
+         * 本頁直接讀取 GitHub repository 的
          * download/ 目錄，並依實際存在的 Build
          * 檔案建立索引。
          *
          *
          * 開發階段 Build ID：
          *
-         *     YYDDDHHMM
+         *     YYMDDHHMM
          *
-         * 例如：
+         * YY：西元年份的後兩位
          *
-         *     2026/09/24 15:43
+         * M：
+         *     1～9 = 1～9 月
+         *     X    = 10 月
+         *     Y    = 11 月
+         *     Z    = 12 月
          *
-         *     26 + 924 + 15 + 43
+         * DD：日期
+         * HH：24 小時制小時
+         * MM：分鐘
          *
-         *     269241543
+         * 範例：
          *
+         *     2026/10/17 15:50
          *
-         * 10 月：
-         *
-         *     XDD
-         *
-         * 11 月：
-         *
-         *     YDD
-         *
-         * 12 月：
-         *
-         *     ZDD
+         *     Build-26X171550
          *
          *
          * 正式 AluaOS 大版本階段：
@@ -192,20 +185,38 @@
          *
          * 例如：
          *
-         *     2026/12/21 19:23
-         *
          *     26122119
          *
-         *
-         * 注意：
-         *
          * 正式階段 Build ID 不包含分鐘。
+         *
+         *
+         * 時間規則：
+         *
+         *     Build ID 一律代表台灣時間。
+         *
+         *     時間排序使用實際時間戳記，
+         *     不受訪客所在時區影響。
+         *
+         *     台灣訪客只顯示台灣時間。
+         *
+         *     其他時區的訪客會看到：
+         *
+         *     台灣時間 (UTC +8)
+         *     訪客當地時間 (UTC +/-X)
          */
 
 
         const GITHUB_API =
             "https://api.github.com/repos/" +
             "aluapju/aluapju.github.io/contents/download";
+
+
+        const TAIWAN_TIME_ZONE =
+            "Asia/Taipei";
+
+
+        const TAIWAN_UTC_OFFSET_MINUTES =
+            8 * 60;
 
 
         const buildStatus =
@@ -220,15 +231,44 @@
 
 
         /*
-         * 判斷日期是否為有效日期。
+         * 判斷訪客瀏覽器的時區。
          *
-         * JavaScript Date 會自動把例如：
+         * 例如：
          *
-         *     2026/09/31
+         *     Asia/Taipei
+         *     America/New_York
+         *     Europe/London
+         *     Asia/Tokyo
          *
-         * 修正成下一個月份。
+         * 如果瀏覽器未提供時區，
+         * 則退回 UTC。
+         */
+
+        const visitorTimeZone =
+            Intl.DateTimeFormat()
+                .resolvedOptions()
+                .timeZone || "UTC";
+
+
+        const isTaiwanTimeZone =
+            visitorTimeZone === TAIWAN_TIME_ZONE;
+
+
+        /*
+         * 檢查日期有效性，並將台灣當地時間
+         * 轉換成真正的時間戳記。
          *
-         * 這裡必須阻止這種情況。
+         * 重要：
+         *
+         * 不可以直接使用：
+         *
+         *     new Date(year, month - 1, day, ...)
+         *
+         * 因為這會把日期解讀成訪客的當地時間。
+         *
+         * Build ID 記錄的是台灣時間，因此先以 UTC
+         * 檢查年月日時分，再減去台灣的 UTC+8，
+         * 得到同一個絕對時間。
          */
 
         function createValidDate(
@@ -239,24 +279,31 @@
             minute
         ) {
 
-            const date =
+            const wallClockDate =
                 new Date(
-                    year,
-                    month - 1,
-                    day,
-                    hour,
-                    minute,
-                    0,
-                    0
+                    Date.UTC(
+                        year,
+                        month - 1,
+                        day,
+                        hour,
+                        minute,
+                        0,
+                        0
+                    )
                 );
 
 
+            /*
+             * 防止 JavaScript 自動修正無效日期，
+             * 例如 2026/09/31。
+             */
+
             if (
-                date.getFullYear() !== year ||
-                date.getMonth() !== month - 1 ||
-                date.getDate() !== day ||
-                date.getHours() !== hour ||
-                date.getMinutes() !== minute
+                wallClockDate.getUTCFullYear() !== year ||
+                wallClockDate.getUTCMonth() !== month - 1 ||
+                wallClockDate.getUTCDate() !== day ||
+                wallClockDate.getUTCHours() !== hour ||
+                wallClockDate.getUTCMinutes() !== minute
             ) {
 
                 return null;
@@ -264,7 +311,28 @@
             }
 
 
-            return date;
+            /*
+             * Build ID 的時間是台灣時間。
+             *
+             * 台灣時間 = UTC + 8 小時
+             *
+             * 因此將台灣的年月日時分減去 8 小時，
+             * 建立代表同一時刻的 Date 物件。
+             *
+             * Date.UTC 會正確處理跨日、跨月及跨年。
+             */
+
+            return new Date(
+                Date.UTC(
+                    year,
+                    month - 1,
+                    day,
+                    hour - 8,
+                    minute,
+                    0,
+                    0
+                )
+            );
 
         }
 
@@ -274,27 +342,22 @@
          *
          * 格式：
          *
-         *     YYDDDHHMM
-         *
-         * 但檔案名稱為：
-         *
-         *     build-YYDDDHHMM
-         *
+         *     build-YYMDDHHMM
          *
          * 範例：
          *
          *     build-269241543
-         *
-         *     26 924 15 43
+         *     build-26X171550
+         *     build-26Y051230
+         *     build-26Z211923
          */
-
 
         function parseDevelopmentBuild(
             buildId
         ) {
 
             const match =
-                /^build-(\d{2})(\d{3})(\d{2})(\d{2})$/i
+                /^build-(\d{2})([1-9XYZ]\d{2})(\d{2})(\d{2})$/i
                     .exec(buildId);
 
 
@@ -310,7 +373,7 @@
 
 
             const encodedDate =
-                match[2];
+                match[2].toUpperCase();
 
 
             const hour =
@@ -326,14 +389,10 @@
 
 
             /*
-             * 10 月
-             *
-             * XDD
+             * 10 月：XDD
              */
 
-            if (
-                encodedDate[0] === "X"
-            ) {
+            if (encodedDate[0] === "X") {
 
                 month = 10;
 
@@ -346,14 +405,10 @@
 
 
             /*
-             * 11 月
-             *
-             * YDD
+             * 11 月：YDD
              */
 
-            else if (
-                encodedDate[0] === "Y"
-            ) {
+            else if (encodedDate[0] === "Y") {
 
                 month = 11;
 
@@ -366,14 +421,10 @@
 
 
             /*
-             * 12 月
-             *
-             * ZDD
+             * 12 月：ZDD
              */
 
-            else if (
-                encodedDate[0] === "Z"
-            ) {
+            else if (encodedDate[0] === "Z") {
 
                 month = 12;
 
@@ -386,9 +437,7 @@
 
 
             /*
-             * 1～9 月
-             *
-             * MDD
+             * 1～9 月：MDD
              */
 
             else {
@@ -406,10 +455,6 @@
             }
 
 
-            /*
-             * 檢查月份。
-             */
-
             if (
                 month < 1 ||
                 month > 12
@@ -420,10 +465,6 @@
             }
 
 
-            /*
-             * 檢查小時。
-             */
-
             if (
                 hour < 0 ||
                 hour > 23
@@ -433,10 +474,6 @@
 
             }
 
-
-            /*
-             * 檢查分鐘。
-             */
 
             if (
                 minute < 0 ||
@@ -492,12 +529,11 @@
          *
          *     26122119
          *
-         *     26 12 21 19
-         *
-         *
          * 正式 Build ID 不包含分鐘。
+         *
+         * 此處同樣將 ID 中的台灣時間
+         * 轉換為實際時間戳記。
          */
-
 
         function parseReleaseBuild(
             buildId
@@ -589,20 +625,14 @@
          *
          * 開發階段：
          *
-         *     build-269241543.iso
-         *
+         *     build-26X171550.iso
          *
          * 正式階段：
          *
          *     26122119.iso
          *
-         *
-         * 這裡不限定副檔名。
-         *
-         * 只要檔名符合 Build ID，
-         * 就可以進入索引。
+         * 不限定副檔名。
          */
-
 
         function parseBuildFile(
             filename
@@ -639,10 +669,12 @@
 
             /*
              * 開發階段。
+             *
+             * 支援 1～9 月及 X、Y、Z 月份代碼。
              */
 
             if (
-                /^build-\d{2}\d{3}\d{2}\d{2}$/i
+                /^build-\d{2}[1-9XYZ]\d{2}\d{2}\d{2}$/i
                     .test(name)
             ) {
 
@@ -712,69 +744,75 @@
 
 
         /*
-         * 將時間轉換成網站顯示格式。
+         * 將時間戳記轉換成指定時區的日期時間。
+         *
+         * 明確指定 timeZone，避免時間格式
+         * 隨訪客瀏覽器的預設時區而改變。
          */
 
-
-        function formatDate(
-            build
+        function formatDateInTimeZone(
+            date,
+            timeZone,
+            includeMinute
         ) {
 
-            const date =
-                build.date;
+            const formatter =
+                new Intl.DateTimeFormat(
+                    "en-GB",
+                    {
+                        timeZone: timeZone,
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hourCycle: "h23"
+                    }
+                );
+
+
+            const parts =
+                formatter.formatToParts(date);
+
+
+            const values = {};
+
+
+            parts.forEach(
+                part => {
+
+                    if (part.type !== "literal") {
+
+                        values[part.type] =
+                            part.value;
+
+                    }
+
+                }
+            );
 
 
             const year =
-                date.getFullYear();
+                values.year;
 
 
             const month =
-                String(
-                    date.getMonth() + 1
-                ).padStart(2, "0");
+                values.month;
 
 
             const day =
-                String(
-                    date.getDate()
-                ).padStart(2, "0");
+                values.day;
 
 
             const hour =
-                String(
-                    date.getHours()
-                ).padStart(2, "0");
+                values.hour;
 
 
             const minute =
-                String(
-                    date.getMinutes()
-                ).padStart(2, "0");
+                includeMinute
+                    ? values.minute
+                    : "00";
 
-
-            if (
-                build.type ===
-                "development"
-            ) {
-
-                return (
-                    year +
-                    "/" +
-                    month +
-                    "/" +
-                    day +
-                    " " +
-                    hour +
-                    ":" +
-                    minute
-                );
-
-            }
-
-
-            /*
-             * 正式 Build ID 沒有分鐘。
-             */
 
             return (
                 year +
@@ -784,267 +822,83 @@
                 day +
                 " " +
                 hour +
-                ":00"
+                ":" +
+                minute
             );
 
         }
 
 
         /*
-         * 建立一個 Build 項目。
+         * 取得指定時間下，訪客瀏覽器當地時區
+         * 相對於 UTC 的偏移量。
          *
-         * 使用原本 Download 頁面
-         * 已存在的 CSS class。
+         * Date.getTimezoneOffset() 的符號與
+         * 常見 UTC 偏移標記相反，因此需要取負值。
+         *
+         * 例如：
+         *
+         *     UTC+8  -> UTC +8
+         *     UTC-4  -> UTC -4
+         *     UTC+5:30 -> UTC +5:30
          */
 
-
-        function createBuildItem(
-            build
+        function formatUtcOffset(
+            date
         ) {
 
-            const section =
-                document.createElement(
-                    "section"
+            const offsetMinutes =
+                -date.getTimezoneOffset();
+
+
+            const sign =
+                offsetMinutes >= 0
+                    ? "+"
+                    : "-";
+
+
+            const absoluteMinutes =
+                Math.abs(offsetMinutes);
+
+
+            const hours =
+                Math.floor(
+                    absoluteMinutes / 60
                 );
 
 
-            section.className =
-                "download-section";
+            const minutes =
+                absoluteMinutes % 60;
 
 
-            const title =
-                document.createElement(
-                    "h2"
-                );
+            let offsetText =
+                String(hours);
 
 
-            title.textContent =
-                build.id;
+            if (minutes !== 0) {
 
-
-            section.appendChild(
-                title
-            );
-
-
-            const info =
-                document.createElement(
-                    "p"
-                );
-
-
-            if (
-                build.type ===
-                "development"
-            ) {
-
-                info.innerHTML =
-                    "開發階段 Build<br>" +
-                    "編譯時間：" +
-                    formatDate(build);
-
-            }
-            else {
-
-                info.innerHTML =
-                    "AluaOS 正式 Build<br>" +
-                    "編譯時間：" +
-                    formatDate(build);
+                offsetText +=
+                    ":" +
+                    String(minutes).padStart(2, "0");
 
             }
 
 
-            section.appendChild(
-                info
-            );
-
-
-            const download =
-                document.createElement(
-                    "p"
-                );
-
-
-            download.className =
-                "download-link";
-
-
-            const link =
-                document.createElement(
-                    "a"
-                );
-
-
-            link.href =
-                "./" +
-                encodeURIComponent(
-                    build.filename
-                );
-
-
-            link.textContent =
-                "Download " +
-                build.filename;
-
-
-            link.download =
-                build.filename;
-
-
-            download.appendChild(
-                link
-            );
-
-
-            section.appendChild(
-                download
-            );
-
-
-            return section;
-
-        }
-
-
-        /*
-         * 顯示 Build Index。
-         */
-
-
-        function renderBuilds()
-        {
-
-            buildList.innerHTML =
-                "";
-
-
-            /*
-             * 最新 → 最舊
-             */
-
-            builds.sort(
-                (a, b) =>
-                    b.timestamp -
-                    a.timestamp
-            );
-
-
-            if (
-                builds.length === 0
-            ) {
-
-                buildStatus.textContent =
-                    "目前沒有可用的 Build。";
-
-                return;
-
-            }
-
-
-            buildStatus.style.display =
-                "none";
-
-
-            builds.forEach(
-                build => {
-
-                    buildList.appendChild(
-                        createBuildItem(
-                            build
-                        )
-                    );
-
-                }
+            return (
+                "UTC " +
+                sign +
+                offsetText
             );
 
         }
 
 
         /*
-         * 從 GitHub 取得 download/
-         * 目前實際存在的檔案。
-         */
-
-
-        async function loadBuilds()
-        {
-
-            try {
-
-                const response =
-                    await fetch(
-                        GITHUB_API,
-                        {
-                            headers: {
-                                "Accept":
-                                    "application/vnd.github+json"
-                            }
-                        }
-                    );
-
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        "GitHub API HTTP " +
-                        response.status
-                    );
-
-                }
-
-
-                const files =
-                    await response.json();
-
-
-                builds =
-                    files
-                        .filter(
-                            file =>
-                                file.type ===
-                                "file"
-                        )
-                        .map(
-                            file =>
-                                parseBuildFile(
-                                    file.name
-                                )
-                        )
-                        .filter(
-                            build =>
-                                build !== null
-                        );
-
-
-                renderBuilds();
-
-            }
-            catch (error) {
-
-                console.error(
-                    "Failed to load XNKernel Build index:",
-                    error
-                );
-
-
-                buildStatus.textContent =
-                    "無法載入 Build 索引。";
-
-            }
-
-        }
-
-
-        /*
-         * 開始載入。
-         */
-
-        loadBuilds();
-
-    </script>
-
-
-    <script src="../transition.js"></script>
-
-</body>
-</html>
+         * 格式化 Build 時間。
+         *
+         * 台灣時區訪客：
+         *
+         *     編譯時間：2026/10/17 15:50
+         *
+         * 其他時區訪客：
+         *
