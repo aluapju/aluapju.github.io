@@ -902,3 +902,346 @@
          *
          * 其他時區訪客：
          *
+         *     編譯時間：
+         *     台灣時間：2026/10/17 15:50 (UTC +8)
+         *     訪客當地時間：2026/10/17 03:50 (UTC -4)
+         *
+         * 訪客當地時間會依照該時間點的時區偏移
+         * 自動處理夏令時間。
+         */
+
+        function formatDate(
+            build
+        ) {
+
+            const date =
+                build.date;
+
+
+            const includeMinute =
+                build.type === "development";
+
+
+            const taiwanDate =
+                formatDateInTimeZone(
+                    date,
+                    TAIWAN_TIME_ZONE,
+                    includeMinute
+                );
+
+
+            /*
+             * 台灣時區訪客：
+             *
+             * 只顯示台灣時間，不重複顯示 UTC+8。
+             */
+
+            if (isTaiwanTimeZone) {
+
+                return taiwanDate;
+
+            }
+
+
+            /*
+             * 其他時區訪客：
+             *
+             * 台灣時間固定標示 UTC +8。
+             */
+
+            const taiwanTime =
+                taiwanDate +
+                " (UTC +8)";
+
+
+            /*
+             * 顯示訪客瀏覽器的當地時間，
+             * 並附上該時間點的 UTC 偏移。
+             */
+
+            const visitorDate =
+                formatDateInTimeZone(
+                    date,
+                    visitorTimeZone,
+                    includeMinute
+                );
+
+
+            const visitorOffset =
+                formatUtcOffset(date);
+
+
+            const visitorTime =
+                visitorDate +
+                " (" +
+                visitorOffset +
+                ")";
+
+
+            return (
+                "台灣時間：" +
+                taiwanTime +
+                "<br>" +
+                "訪客當地時間：" +
+                visitorTime
+            );
+
+        }
+
+
+        /*
+         * 建立一個 Build 項目。
+         *
+         * 保留既有 CSS class 與下載連結方式。
+         */
+
+        function createBuildItem(
+            build
+        ) {
+
+            const section =
+                document.createElement(
+                    "section"
+                );
+
+
+            section.className =
+                "download-section";
+
+
+            const title =
+                document.createElement(
+                    "h2"
+                );
+
+
+            title.textContent =
+                build.id;
+
+
+            section.appendChild(
+                title
+            );
+
+
+            const info =
+                document.createElement(
+                    "p"
+                );
+
+
+            const buildType =
+                build.type === "development"
+                    ? "開發階段 Build"
+                    : "AluaOS 正式 Build";
+
+
+            info.innerHTML =
+                buildType +
+                "<br>" +
+                "編譯時間：" +
+                formatDate(build);
+
+
+            section.appendChild(
+                info
+            );
+
+
+            const download =
+                document.createElement(
+                    "p"
+                );
+
+
+            download.className =
+                "download-link";
+
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.href =
+                "./" +
+                encodeURIComponent(
+                    build.filename
+                );
+
+
+            link.textContent =
+                "Download " +
+                build.filename;
+
+
+            link.download =
+                build.filename;
+
+
+            download.appendChild(
+                link
+            );
+
+
+            section.appendChild(
+                download
+            );
+
+
+            return section;
+
+        }
+
+
+        /*
+         * 顯示 Build Index。
+         *
+         * 依照實際時間戳記排序：
+         *
+         *     最新 → 最舊
+         *
+         * 時間戳記代表同一個絕對時刻，
+         * 因此不會因訪客時區不同而改變排序。
+         */
+
+        function renderBuilds()
+        {
+
+            buildList.innerHTML =
+                "";
+
+
+            builds.sort(
+                (a, b) =>
+                    b.timestamp -
+                    a.timestamp
+            );
+
+
+            if (
+                builds.length === 0
+            ) {
+
+                buildStatus.style.display =
+                    "";
+
+
+                buildStatus.textContent =
+                    "目前沒有可用的 Build。";
+
+                return;
+
+            }
+
+
+            buildStatus.style.display =
+                "none";
+
+
+            builds.forEach(
+                build => {
+
+                    buildList.appendChild(
+                        createBuildItem(
+                            build
+                        )
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+         * 從 GitHub 取得 download/
+         * 目錄目前實際存在的檔案。
+         */
+
+        async function loadBuilds()
+        {
+
+            try {
+
+                const response =
+                    await fetch(
+                        GITHUB_API,
+                        {
+                            headers: {
+                                "Accept":
+                                    "application/vnd.github+json"
+                            }
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "GitHub API HTTP " +
+                        response.status
+                    );
+
+                }
+
+
+                const files =
+                    await response.json();
+
+
+                builds =
+                    files
+                        .filter(
+                            file =>
+                                file.type === "file"
+                        )
+                        .map(
+                            file =>
+                                parseBuildFile(
+                                    file.name
+                                )
+                        )
+                        .filter(
+                            build =>
+                                build !== null
+                        );
+
+
+                renderBuilds();
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Failed to load XNKernel Build index:",
+                    error
+                );
+
+
+                buildStatus.style.display =
+                    "";
+
+
+                buildStatus.textContent =
+                    "無法載入 Build 索引。";
+
+            }
+
+        }
+
+
+        /*
+         * 開始載入。
+         */
+
+        loadBuilds();
+
+    </script>
+
+
+    <script src="../transition.js"></script>
+
+</body>
+</html>
